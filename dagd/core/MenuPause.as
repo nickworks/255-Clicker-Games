@@ -10,29 +10,42 @@
 		
 		public function MenuPause(){
 			
+			var onScreenWidth:int = 250;
+			
+			spacing = 50;
+			offsetY = 80;
+			offsetX = App.main.stage.stageWidth - onScreenWidth;
+			
 			addOption(new ButtonMenuPause("Resume", function(){ App.main.hidePauseMenu(); }));
 			addOption(new ButtonMenuPause("Exit to Menu", function(){
 				App.main.hidePauseMenu();
 				App.main.changeGame(new GameLauncher());
 			}));
 			
+			var nudge:int = onScreenWidth + 5;
 			for each(var bttn:Button in options){
-				bttn.alpha = 0;
+				bttn.x += nudge;
+				nudge += 100;
 			}
+			
 			
 			addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 		}
 		public function update(e:Event):void {
 			
 			if(!doneExpanding) expandBG();
-			else if(!doneFading) fadeInButtons();
+			if(!doneFading) slideInButtons();
 			
 		}
-		private function fadeInButtons():void {
-			for each(var bttn:Button in options){
-				bttn.alpha += .1;
-				if(bttn.alpha >= 1) doneFading = true;
+		private function slideInButtons():void {
+			
+			var isDone:Boolean = true;
+			
+			for(var i:int = 0; i < options.length; i++){
+				var bttn:ButtonMenuPause = ButtonMenuPause(options[i]);
+				if(!bttn.slideLeftTo(offsetX)) isDone = false;
 			}
+			doneFading = isDone;
 		}
 		private function expandBG():void {
 			if(stage != null){

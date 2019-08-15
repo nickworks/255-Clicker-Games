@@ -4,7 +4,18 @@
 		
 		private var menu:Menu;
 		
-		private var games:Vector.<Class> = new <Class>[Game];
+		private var games:Vector.<Class> = new <Class>[
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+			Game,
+		];
 		
 		
 		public function GameLauncher() {
