@@ -16,7 +16,11 @@
 		/** The y-posiyion of the textfields. */
 		protected var offsetY:int = 100;
 		/** The amount of space between each menu option. */
-		protected var spacing:int = 80;
+		protected var spacingY:int = 50;
+		/** The amount of space between each menu option. */
+		protected var spacingX:int = 350;
+		/** The number of columns in the menu. */
+		protected var columns:int = 2;
 		
 		protected var options:Vector.<Button> = new Vector.<Button>();
 		
@@ -25,8 +29,11 @@
 		 * @bttn	The button to add to the menu.
 		 */
 		public function addOption(bttn:Button):void {
-			bttn.x = offsetX;
-			bttn.y = offsetY + options.length * spacing;
+			
+			var col:int = options.length % columns;
+			var row:int = options.length / columns;
+			bttn.x = offsetX + col * spacingX;
+			bttn.y = offsetY + row * spacingY;
 			options.push(bttn);
 			addChild(bttn);
 			

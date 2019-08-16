@@ -1,5 +1,6 @@
 ﻿package dagd.core {
 	import flash.display.MovieClip;
+
 	/**
 	 * This is the abstract base class for all Scenes.
 	 */
@@ -7,7 +8,7 @@
 
 		public var gameTitle:String = "Superfun Game";
 		public var creatorName:String = "Nickles McPickles";
-		
+		public var bannerImage:Class = null;
 		
 		/**
 		 * This function is called whenever the scene should update (once per game tick).

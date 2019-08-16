@@ -12,7 +12,8 @@
 			
 			var onScreenWidth:int = 250;
 			
-			spacing = 50;
+			columns = 1;
+			spacingY = 50;
 			offsetY = 80;
 			offsetX = App.main.stage.stageWidth - onScreenWidth;
 			
@@ -27,7 +28,6 @@
 				bttn.x += nudge;
 				nudge += 100;
 			}
-			
 			
 			addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 		}

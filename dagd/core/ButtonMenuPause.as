@@ -32,5 +32,4 @@
 			textField.text = caption;
 		}
 	}
-	
 }

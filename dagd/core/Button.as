@@ -8,7 +8,7 @@
 	public class Button extends MovieClip {
 
 		public var func:Function;
-		private var hover:Boolean = false;
+		protected var hover:Boolean = false;
 		
 		public function Button(func:Function = null) {
 			stop();
