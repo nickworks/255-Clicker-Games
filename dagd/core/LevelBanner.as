@@ -13,8 +13,13 @@
 			this.y = yHide;
 			changeText("", "");
 			
+			bttnPlay.visible = false;
+			
 			bttnPause.func = function(){
 				App.main.showPauseMenu();
+			};
+			bttnPlay.func = function(){
+				App.main.hidePauseMenu();
 			};
 			
 		}
@@ -24,6 +29,9 @@
 		}
 
 		public function update(shouldShow:Boolean):void {
+			
+			bttnPlay.visible = App.main.isPaused;
+			bttnPause.visible = !App.main.isPaused;
 			var yTarget:Number = (shouldShow) ? yShow : yHide;
 			y += (yTarget - y) * 0.16;
 		}

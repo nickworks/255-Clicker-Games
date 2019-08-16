@@ -93,6 +93,7 @@
 			isPaused = true;
 			pauseMenu = new MenuPause();
 			addChildAt(pauseMenu, getChildIndex(levelBanner));
+			
 		}
 		public function hidePauseMenu():void {
 			if(!isPaused) return;
