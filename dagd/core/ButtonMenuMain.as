@@ -27,6 +27,7 @@
 				img.mask = bg2;
 				addChildAt(img, getChildIndex(bg2));
 			}
+			
 			textField.autoSize = TextFieldAutoSize.LEFT;
 			this.caption = caption;
 			redraw();
@@ -58,12 +59,12 @@
 			bg2.visible = false;
 			textField.text = caption;
 			var tf:TextFormat = textField.defaultTextFormat;
-			tf.color = hover ? 0x0 : 0x666666;
+			tf.color = hover ? 0xFFFFFF : 0x666666;
 			textField.setTextFormat(tf);
 			if(img != null) img.alpha = hover ? .5 : .2;
 			
 			var ct:ColorTransform = new ColorTransform();
-			ct.color = hover ? 0xFFFFFF : 0x0;
+			ct.color = hover ? 0x000000 : 0xEEEEEE;
 			bg1.transform.colorTransform = ct;
 			
 		}

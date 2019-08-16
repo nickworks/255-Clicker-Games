@@ -3,13 +3,14 @@
 	import flash.events.Event;
 	
 	public class MenuMain extends Menu {
-
+		
 		public function MenuMain(games:Vector.<Class>) {
 			offsetX = 75;
-			offsetY = 200;
+			offsetY = 230;
 			spacingY = 70;
 			spacingX = 350;
 			columns = 2;
+			
 			
 			for each(var gameType:Class in games){
 				var game = new gameType();
@@ -19,8 +20,10 @@
 				var func:Function = function(){ App.main.changeGame(new Game()); };
 				
 				addMenuOption(new ButtonMenuMain(title, img, func));
-			}
+			}			
+			
 			addEventListener(Event.ENTER_FRAME, update, false, 0, true);
+			
 		}
 		public function addMenuOption(bttn:ButtonMenuMain):void {
 			
@@ -35,6 +38,7 @@
 			
 		}
 		public function update(e:Event):void {
+			
 			
 			for each(var bttn:Button in options){
 				ButtonMenuMain(bttn).slideToTarget();

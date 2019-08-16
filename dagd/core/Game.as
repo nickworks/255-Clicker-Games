@@ -11,12 +11,6 @@
 		public var bannerImage:Class = null;
 		
 		/**
-		 * This function is called whenever the scene should update (once per game tick).
-		 * @return	The scene the game should switch to next. If the game shouldn't
-		 * switch scenes, simply return null.
-		 */
-		public function update():void {}
-		/**
 		 * This method is called when the Scene is loaded and in the scene graph.
 		 * Override this method and use it as an initializer.
 		 */
