@@ -1,4 +1,4 @@
-﻿package dagd.core {
+package dagd.core {
 	
 	import flash.display.Stage;
 	import flash.display.MovieClip;

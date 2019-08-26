@@ -14,9 +14,11 @@
 		private var img:Bitmap;
 		public var targetX:Number = 0;
 		
-		public function ButtonMenuMain(caption:String = "", img:Bitmap = null, func:Function = null) {
+		public function ButtonMenuMain(caption:String = "", img:Bitmap = null, gameType:Class = null) {
 			
-			super(func);
+			super(function(){
+				App.main.changeGame(new gameType());
+			});
 
 			if(img != null){
 				this.img = img;

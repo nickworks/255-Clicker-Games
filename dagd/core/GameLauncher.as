@@ -5,21 +5,34 @@
 	import flash.events.Event;
 	import flash.text.*;
 	
+	import dagd.andrea.GameAndrea;
+	import dagd.breu.GameBreu;
+	import dagd.caughman.GameCaughman;
+	import dagd.jennings.GameJennings;
+	import dagd.myles.GameMyles;
+	import dagd.petzak.GamePetzak;
+	import dagd.powers.GamePowers;
+	import dagd.smith.GameSmith;
+	import dagd.stralle.GameStralle;
+	import dagd.takens.GameTakens;
+	import dagd.wynalda.GameWynalda;
+	
 	public class GameLauncher extends Game {
 		
 		private var menu:MenuMain;
 		
 		private var games:Vector.<Class> = new <Class>[
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
-			Game,
+			GameAndrea,
+			GameBreu,
+			GameCaughman,
+			GameJennings,
+			GameMyles,
+			GamePetzak,
+			GamePowers,
+			GameSmith,
+			GameStralle,
+			GameTakens,
+			GameWynalda
 		];
 		
 				
@@ -52,6 +65,7 @@
 					addChild(menu);
 				}
 			}, false, 0, true);
+			
 		}
 		public function update(e:Event):void {
 			var targetLogoScale:Number = showButtons ? .5 : .8;

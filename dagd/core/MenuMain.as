@@ -17,10 +17,9 @@
 				
 				var title:String = game.gameTitle;
 				var img:Bitmap = game.bannerImage == null ? null : new Bitmap(new game.bannerImage());
-				var func:Function = function(){ App.main.changeGame(new Game()); };
 				
-				addMenuOption(new ButtonMenuMain(title, img, func));
-			}			
+				addMenuOption(new ButtonMenuMain(title, img, gameType));
+			}
 			
 			addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 			
