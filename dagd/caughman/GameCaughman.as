@@ -5,7 +5,8 @@
 	public class GameCaughman extends Game {
 
 		public function GameCaughman() {
-			
+			creatorName = "Michael Caughman";
+			gameTitle = "TBD Clicker Game"
 		}
 	}
 }
