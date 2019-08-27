@@ -6,7 +6,7 @@
 
 		public function GameMyles() {
 			creatorName = "Danny Myles";
-			gameTitle("placeholder");
+			gameTitle = "placeholder";
 		}
 	}
 }
