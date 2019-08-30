@@ -5,7 +5,8 @@
 	public class GameWynalda extends Game {
 
 		public function GameWynalda() {
-			
+			creatorName = "Jordan Wynalda";
+			gameTitle = "Tree Wacker";
 		}
 	}
 }
