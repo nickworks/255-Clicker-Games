@@ -1,6 +1,8 @@
 ﻿package dagd.caughman {
 	
 	import dagd.core.Game;
+	import flash.events.MouseEvent;
+	import flash.events.Event;
 	
 	public class GameCaughman extends Game {
 
@@ -26,7 +28,18 @@
 			addChild(boon);
 			boon.x = 600;
 			boon.y = 600;
+			
+			boon.addEventListener(MouseEvent.CLICK, boonClick); 
+			enemy.addEventListener(MouseEvent.CLICK, enemyClick); 
+			
 		}//End GameCaughman
+		
+		public function boonClick(e:MouseEvent): void{ 
+			trace("+ 1 Point");
+		}//End handleClick 
+		public function enemyClick(e:MouseEvent): void{ 
+			trace("- 1 Point");
+		}//End handleClick 
 		
 		public function gameLoop(): void {
 			
