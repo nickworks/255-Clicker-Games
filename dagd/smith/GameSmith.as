@@ -6,7 +6,7 @@
 
 		public function GameSmith() {
 			creatorName = "Antonio Smith";
-			gameTitle = "Clickity Clack"
+			gameTitle = "Clickity Clack";
 		}
 	}
 }
