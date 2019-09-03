@@ -6,7 +6,7 @@
 
 	public class GameAndrea extends Game {
 		
-		var f:face;
+		var f:Face;
 		
 
 		public function GameAndrea() 
@@ -14,7 +14,7 @@
 			creatorName = "Vince Andrea";
 			gameTitle = "Ticky Clicky";
 			
-			f = new face();
+			f = new Face();
 			addChild(f);
 			
 			addEventListener(Event.ENTER_FRAME, gameLoop);
@@ -25,12 +25,10 @@
 
 		
 		public function gameLoop(e:Event):void
-		{
-			
-			
+		{					
 			f.rotation += 4;
-			f.x = Math.random() * stage.stageHeight;
-			f.y = Math.random() * stage.stageWidth;
+			f.x = 400;
+			f.y = 350;
 			
 		}
 	}
