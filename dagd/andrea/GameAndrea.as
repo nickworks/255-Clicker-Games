@@ -27,8 +27,8 @@
 		public function gameLoop(e:Event):void
 		{					
 			f.rotation += 4;
-			f.x = Math.random() * stage.stageHeight;
-			f.y = Math.random() * stage.stageWidth;
+			f.x = 400;
+			f.y = 350;
 			
 		}
 	}
