@@ -12,7 +12,7 @@
 		public function GameAndrea() 
 		{
 			creatorName = "Vince Andrea";
-			gameTitle = "Ticky Clicky";
+			gameTitle = "Tricky Clicky";
 			
 			f = new Face();
 			addChild(f);
