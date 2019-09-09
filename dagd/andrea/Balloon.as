@@ -38,7 +38,7 @@
 			y -= 3;
 			x += velocityX;
 			
-			if (x < -(this.width * .5) || x > (800 + (this.width * .5)) || y > (700 + (this.height * .5)))
+			if (x < -(this.width) || x > (800 + (this.width * .5)) || y < -(this.height * .5))
 			{
 				isDead = true;
 			}
