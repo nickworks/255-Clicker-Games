@@ -10,14 +10,14 @@
 
 
 		public function Twig() {
-			x = Math.random() * 800;
+			x = Math.random() * 600;
 			y = Math.random() * 0;
 			
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 
 		}
 		public function dispose():void{ // this functions job is to perform any cleanup before the object is removed from the game.
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 			
 		}
 

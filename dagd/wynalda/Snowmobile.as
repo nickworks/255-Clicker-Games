@@ -4,20 +4,20 @@
 	import flash.events.MouseEvent;
 
 
-	public class Branch extends MovieClip {
+	public class Snowmobile extends MovieClip {
 		
 		public var isDead:Boolean = false;
 
 
-		public function Branch() {
-			x = Math.random() * 800;
-			y = Math.random() * 0;
+		public function Snowmobile() {
+			x = Math.random() * -150;
+			y = Math.random() * 550;
 			
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick); // can change from MOUSE_DOWN to ROLL_OVER to change it from having to be clicked to just rolling mouse over it
 
 		}
 		public function dispose():void{ // this functions job is to perform any cleanup before the object is removed from the game.
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 			
 		}
 
@@ -25,7 +25,7 @@
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
 			
-			y += 3; // move to right 3 pixels
+			x += 3; // move to right 3 pixels
 
 			if (y < 0) { // checks if off right side of screen
 				isDead = true;
