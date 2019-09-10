@@ -3,15 +3,14 @@
 	import dagd.core.Game;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
+	import flash.text.TextFieldAutoSize;
+	
 	
 	public class GameCaughman extends Game {
-		var i:int = new int(0)
-		var score:int = new int(0);
-		var player = new Player;
-		var guppy = new Guppy;
-		var salmon = new Salmon;
-		var marlin = new Marlin;
-		var can = new Can;
+		private var health:Number =0;
+		private var score:Number = 0;
+
+		private var guppys:Array = new Array();
 		
 		//Compiling code for the Game
 		public function GameCaughman() {
@@ -20,49 +19,38 @@
 			creatorName = "Michael Caughman";
 			gameTitle = "Gone Fishing";
 			
-			addChild(player);
-			player.x = 400;
-			player.y = 400;
-			
-			addChild(guppy);
-			guppy.x = 250;
-			guppy.y = 250;
-			
-			addChild(salmon);
-			salmon.x = 600;
-			salmon.y = 600;
-			
-			addChild(marlin);
-			marlin.x = 500;
-			marlin.y = 500;
-			
-			guppy.addEventListener(MouseEvent.CLICK, boonClick); 
-			//enemy.addEventListener(MouseEvent.CLICK, enemyClick); 
-			
-			//Add Functionality for Mouse = Player
-			update();
-			
 		}//End GameCaughman
 		
-		public function boonClick(e:MouseEvent): void{ 
-			trace("+ 1 Point")
-			++i;
-			trace(score);
-			return;
-		}//End handleClick 
-		public function enemyClick(e:MouseEvent): void{ 
-			trace("- 1 Point");
-		}//End handleClick 
+			override public function onStart(): void{
+				
+				addEventListener(Event.ENTER_FRAME, gameLoop);
+			}//gameStart
 		
-		public function gameLoop(): void {
+			public function gameLoop(e:Event): void {
+				
+				//spawn a thing:
+				var g:Guppy = new Guppy();
+				//var index:int = getChildIndex(hud);
+				addChild(g);
+				guppys.push(g);
+				
+				//update all things:
+				for(var i:int = guppys.length-1; i>=0;i--){
+					guppys[i].update();
+					
+					if(guppys[i].isDead){
+						score+= guppys[i].points;
+						guppys[i].dispose();//remove event listeners
+						removeChild(guppys[i]);//remove from scene graph
+						guppys.removeAt(i);//remove from the array
+					}
+					
+				}
 			
 		}//End gameLoop
 		
-		public function update(): void{
-			score = i;
-			i++;
-			trace(score);
-		}//End update
+
+
 
 		
 		
