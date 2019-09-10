@@ -20,9 +20,10 @@
 			creatorName = "Danny Myles";
 			gameTitle = "Shooting Stars";
 
+		}
+		
+		override public function onStart():void {
 			addEventListener(Event.ENTER_FRAME, gameLoop);
-
-
 		}
 		
 		override public function onEnd():void {
