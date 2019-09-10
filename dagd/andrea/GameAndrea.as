@@ -7,6 +7,7 @@
 	import dagd.andrea.Balloon;
 	import dagd.andrea.Ant;
 	import dagd.andrea.Candy;
+	//import dagd.andrea.MyHUD;
 
 	public class GameAndrea extends Game 
 	{		
@@ -15,6 +16,7 @@
 		private var candy:Array = new Array();
 		private var countdownTimer:int = 0;
 		private var playTimer:int = 0;
+		//private var hud:MyHUD;
 		//private var balloonTimer:Timer = new Timer(2000,0);
 		
 		public function GameAndrea() 
@@ -25,9 +27,14 @@
 			//balloonTimer.addEventListener(TimerEvent.TIMER, spawnBalloon);
 			//balloonTimer.start();
 			
-			addEventListener(Event.ENTER_FRAME, gameLoop);
+			//addChild(hud);
 			
-		}			
+		}	
+		
+		override public function onStart():void
+		{
+			addEventListener(Event.ENTER_FRAME, gameLoop);
+		}
 		
 		override public function onEnd():void
 		{
@@ -87,7 +94,7 @@
 		
 		private function updateBalloons():void
 		{
-			for (var i:int = 0; i < balloons.length; i++)
+			for (var i:int = balloons.length - 1; i >= 0 ; i--)
 			{
 				balloons[i].update();
 				if(balloons[i].isDead == true)
@@ -107,10 +114,10 @@
 						}
 					}
 					
-					removeChild(balloons[i]);
 					balloons[i].dispose();
+					removeChild(balloons[i]);					
 					balloons.splice(i,1);
-					--i;
+					
 				}
 			}
 			
@@ -142,6 +149,8 @@
 			var c = new Candy();
 			candy.push(c);
 			addChild(c);
+			//var index:int = getChildIndex(hud);
+			//addChildAt(c, index);
 		}
 	}
 }

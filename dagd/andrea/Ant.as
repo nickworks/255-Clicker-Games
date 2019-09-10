@@ -10,12 +10,18 @@
 		public var isDead:Boolean = false;
 		
 		private var velocityX:Number;
+		private var velocityY:Number;
+		private var velocityA:Number;
 		
 		public function Ant() 
 		{
-			var offset:int = Math.random() * 30 + 10;
+			var offset:int = Math.random() * 10 - 50;
 			var direction:Boolean = Boolean(Math.floor(Math.random() * 2));
 			velocityX = Math.random() * 3;
+			velocityY = Math.random() * 10 - 20;
+			velocityA = Math.random() * 10 - 5;
+			
+			y = mouseY + offset;
 			
 			if (direction != true)
 			{
@@ -24,7 +30,7 @@
 			}
 			
 			x = mouseX + offset;
-			y = mouseY + offset;
+			
 			
 			addEventListener(MouseEvent.ROLL_OVER, handleClick);
 		}
@@ -35,8 +41,13 @@
 		
 		public function update():void 
 		{
-			y += 3;
+			var gravity:Number = 1;
+			velocityY += gravity;
+			
+			y += velocityY;
 			x += velocityX;
+			
+			rotation += velocityA;
 			
 			if (x < -(this.width * .5) || x > (800 + (this.width * .5)) || y > (700 + (this.height * .5)))
 			{

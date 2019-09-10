@@ -17,13 +17,8 @@
 		{
 			x = (Math.random() * 400) + 200;
 			y = (Math.random() * 100) + 600;
-			velocityX = Math.random() * 4;
-			var direction:Boolean = Boolean(Math.floor(Math.random() * 2));
-			
-			if (direction != true)
-			{
-				velocityX = -velocityX;
-			}
+			velocityX = Math.random() * 8 - 4;
+
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
