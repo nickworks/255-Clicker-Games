@@ -1,6 +1,7 @@
 ﻿package dagd.myles {
 
 	import dagd.core.Game;
+	import dagd.core.App;
 	import flash.utils.Timer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -9,6 +10,10 @@
 
 		private var stars: Array = new Array(); // make an empty array
         
+		private var countdownTimer:int = 0;
+		
+		private var playTimer:int = 0;
+		
 		
 		public function GameMyles() {
 
@@ -19,8 +24,29 @@
 
 
 		}
+		
+		override public function onEnd():void {
+			removeEventListener(Event.ENTER_FRAME, gameLoop);
+			
+		}
+		
 		private function gameLoop(e: Event): void {
-			spawnStar();
+			if(App.main.isPaused) return;
+			
+			playTimer++;
+			
+			countdownTimer--;
+			if(countdownTimer <= 0) {
+				spawnStar();
+				
+				var min:int = 30;
+				if(playTimer > 300) min = 15;
+				if(playTimer > 600) min = 0;
+				
+				countdownTimer = Math.random() * 30 + min; // range of (min) to (min+30) frames
+			}
+			
+			
 
 			//trace( stars.length );
 
