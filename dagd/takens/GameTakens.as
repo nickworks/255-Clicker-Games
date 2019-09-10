@@ -6,6 +6,7 @@
 	import flash.ui.Mouse;
 	import dagd.takens.Cow;
 	import dagd.takens.UFO;
+	import dagd.core.App;
 
 	public class GameTakens extends Game {
 
@@ -26,8 +27,18 @@
 			
 		}
 		
+		override public function onStart():void{
+			Mouse.hide();
+		}
+		
+		override public function onEnd():void{
+			Mouse.show();
+			removeEventListener(Event.ENTER_FRAME, gameLoop);
+		}
+		
 		private function gameLoop(e: Event): void {
 			
+			if(App.main.isPaused) return;
 			//I would have these be in the ufo class, but it messes up the location due to local space
 			ufo.x = mouseX;
 			ufo.y = mouseY;
@@ -36,14 +47,17 @@
 		
 		private function spawnCow(){
 			
-			for(var x = 0;x<cows.length;x++){
+			for(var x = cows.length-1;x>=0;x--){
 				cows[x].update();
 				if(cows[x].isDead){
 					removeChild(cows[x]);
 					cows[x].dispose();
 					cows.removeAt(x);
 				}
+				
 			}
+			
+			
 			
 			var chance:int = Math.random() * 100;
 			if(chance < 2){

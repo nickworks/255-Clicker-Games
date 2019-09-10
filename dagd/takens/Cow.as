@@ -10,7 +10,7 @@
 		public var isDead: Boolean = false;
 
 		public function Cow() {
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 
 		public function update(): void {
@@ -26,7 +26,7 @@
 		}
 
 		public function dispose(): void {
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 
 	}
