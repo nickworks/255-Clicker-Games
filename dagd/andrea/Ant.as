@@ -13,7 +13,7 @@
 		
 		public function Ant() 
 		{
-			var offset:int = Math.random() * 10;
+			var offset:int = Math.random() * 30 + 10;
 			var direction:Boolean = Boolean(Math.floor(Math.random() * 2));
 			velocityX = Math.random() * 3;
 			
@@ -26,11 +26,11 @@
 			x = mouseX + offset;
 			y = mouseY + offset;
 			
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.ROLL_OVER, handleClick);
 		}
 		public function dispose():void 
 		{
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.ROLL_OVER, handleClick);
 		}
 		
 		public function update():void 

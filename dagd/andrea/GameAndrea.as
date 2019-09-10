@@ -1,6 +1,7 @@
 ﻿package dagd.andrea 
 {	
 	import dagd.core.Game;
+	import dagd.core.App;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import dagd.andrea.Balloon;
@@ -12,38 +13,62 @@
 		private var balloons:Array = new Array();
 		private var ants:Array = new Array();
 		private var candy:Array = new Array();
+		private var countdownTimer:int = 0;
+		private var playTimer:int = 0;
+		//private var balloonTimer:Timer = new Timer(2000,0);
 		
 		public function GameAndrea() 
 		{
 			creatorName = "Vince Andrea";
 			gameTitle = "Tricky Clicky";			
 			
+			//balloonTimer.addEventListener(TimerEvent.TIMER, spawnBalloon);
+			//balloonTimer.start();
+			
 			addEventListener(Event.ENTER_FRAME, gameLoop);
+			
 		}			
+		
+		override public function onEnd():void
+		{
+			removeEventListener(Event.ENTER_FRAME, gameLoop);
+			//balloonTimer.removeEventListener(TimerEvent.TIMER, spawnBalloon);
+		}
 		
 		public function gameLoop(e:Event):void
 		{
-			if (balloons.length < 10)
+			if(App.main.isPaused) return; 
+			
+			playTimer++;
+			countdownTimer--;
+			if(countdownTimer <= 0)
 			{
 				spawnBalloon();
-				//trace("Balloons: " + balloons.length);
+
+				var min:int = 30;
+				if(playTimer > 600) min = 30;
+				if(playTimer > 2400) min = 15;
+				
+				countdownTimer = Math.random() * 60 + min;
 			}
+			
 			
 			updateAnts();
 			updateBalloons();
-			updateCandy();			
+			updateCandy();	
+			trace(balloons.length);
 		}
 			
 
 		private function spawnBalloon():void
 		{
-			var roll = Math.random() * 100;
-			if (roll < 2)
-			{
-				var b = new Balloon();
-				balloons.push(b);
-				addChild(b);
-			}
+			//var roll = Math.random() * 100;
+			//if (roll < 2)
+			//{
+			var b = new Balloon();
+			balloons.push(b);
+			addChild(b);
+			//}
 		}
 		private function updateAnts():void
 		{
@@ -55,7 +80,7 @@
 					removeChild(ants[j]);
 					ants[j].dispose();
 					ants.splice(j,1);
-					j--;
+					--j;
 				}
 			}
 		}
@@ -85,7 +110,7 @@
 					removeChild(balloons[i]);
 					balloons[i].dispose();
 					balloons.splice(i,1);
-					i--;
+					--i;
 				}
 			}
 			
@@ -101,7 +126,7 @@
 					removeChild(candy[k]);
 					candy[k].dispose();
 					candy.splice(k,1);
-					k--;
+					--k;
 				}
 			}
 		}
