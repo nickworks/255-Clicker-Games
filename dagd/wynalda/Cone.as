@@ -14,7 +14,7 @@
 		//END PHYSICS
 
 		public function Cone() {
-			x = Math.random() * 650;
+			x = Math.random() * 780;
 			y = Math.random() * 0;
 
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick); // can change from MOUSE_DOWN to ROLL_OVER to change it from having to be clicked to just rolling mouse over it
@@ -30,14 +30,14 @@
 		public function update(): void {
 			
 			//PHYSICS
-			var gravity:Number = 1;
-			velocityY += gravity;
-			x += velocityX;
-			y += velocityY;
-			rotation += velocityA;
+			//var gravity:Number = 1;
+			//velocityY += gravity;
+			//x += velocityX;
+			//y += velocityY;
+			//rotation += velocityA;
 			//END PHYSICS
 
-			//y += 3; // move to right 3 pixels
+			y += 1.5; // move to right 3 pixels
 
 			if (y < 0) { // checks if off right side of screen
 				isDead = true;

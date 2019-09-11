@@ -11,7 +11,7 @@
 
 		public function Snowmobile() {
 			x = Math.random() * -150;
-			y = Math.random() * 550;
+			y = Math.random() * 680;
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick); // can change from MOUSE_DOWN to ROLL_OVER to change it from having to be clicked to just rolling mouse over it
 
@@ -25,7 +25,7 @@
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
 			
-			x += 3; // move to right 3 pixels
+			x += 5; // move to right 3 pixels
 
 			if (y < 0) { // checks if off right side of screen
 				isDead = true;

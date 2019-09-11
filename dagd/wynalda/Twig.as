@@ -10,7 +10,7 @@
 
 
 		public function Twig() {
-			x = Math.random() * 600;
+			x = Math.random() * 780;
 			y = Math.random() * 0;
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
@@ -25,7 +25,7 @@
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
 			
-			y += 3; // move to right 3 pixels
+			y += 1; // move to right 3 pixels
 
 			if (y < 0) { // checks if off right side of screen
 				isDead = true;
