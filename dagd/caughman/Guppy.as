@@ -1,4 +1,5 @@
-﻿package  {
+﻿package dagd.caughman  {
+
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
@@ -13,11 +14,11 @@
 		
 		public function Guppy() {
 			
-			x= -20;
-			y= 400;
+			x= 400;
+			y= 300;
 			
-			velocityX = 50;
-			velocityY = 0;
+			velocityX = Math.random()*4+1;
+			velocityY = Math.random()* 5-2.5;
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, click);
 		}//End compiler
@@ -28,16 +29,13 @@
 			}//End Click
 			
 			public function update():void {
-			y++;
+			x++;
 			//euler integration
-			var gravity:Number =1;
-			
-			velocityY+= gravity;
 			
 			x+= velocityX;
 			y+= velocityY;
 			
-			if(y>400) isDead=true;//kills it off screne
+			if(x>600) isDead=true;//kills it off screne
 		}//End Update
 		
 		public function dispose():void{
