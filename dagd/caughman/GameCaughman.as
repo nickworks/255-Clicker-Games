@@ -7,7 +7,7 @@
 	
 	
 	public class GameCaughman extends Game {
-		private var health:Number =0;
+		private var health:Number =2000;
 		private var score:Number = 0;
 
 		private var guppys:Array = new Array();
@@ -28,7 +28,7 @@
 		
 			public function gameLoop(e:Event): void {
 				
-				//spawn a thing:
+				//spawn a guppy:
 				var g:Guppy = new Guppy();
 				//var index:int = getChildIndex(hud);
 				addChild(g);
