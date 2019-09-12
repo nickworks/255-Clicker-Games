@@ -11,6 +11,7 @@
 		var travelUp:Boolean = true; 
 		var startYLocation:Number; 
 		var isDead:Boolean = false; 
+		var isClicked:Boolean = false;
 		 
 		public function bubble() { 
 			 
@@ -29,14 +30,14 @@
 				travelUp = false;
 			} 
 			 
-			addEventListener(MouseEvent.CLICK, bubbleClick); 
+			addEventListener(MouseEvent.MOUSE_DOWN, bubbleClick); 
  
 		}//end bubble() 
 		 
 		public function dispose():void//clean up left over event listeners 
 		{ 
 			 
-			removeEventListener(MouseEvent.CLICK, bubbleClick); 
+			removeEventListener(MouseEvent.MOUSE_DOWN, bubbleClick); 
 			 
 		}//end of dispose() 
  
@@ -85,8 +86,7 @@
 		 
 		private function bubbleClick(e:MouseEvent):void 
 		{ 
- 
-			trace("Good"); 
+			isClicked = true;
 			isDead = true; 
 			 
 		}//end bubbleClick 
