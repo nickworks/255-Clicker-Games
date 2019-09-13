@@ -5,6 +5,7 @@
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.display3D.IndexBuffer3D;
+	import dagd.core.App;
 
 	public class GameBreu extends Game 
 	{
@@ -71,6 +72,8 @@
 		
 		private function gameLoop(e:Event):void 
 		{
+			if (App.main.isPaused == false)
+			{
 			bubCD--;
 			physicCD--;
 			healthCD--;
@@ -119,6 +122,7 @@
 			comboUpdate();
 			nHUD.setScore(score);
 			nHUD.setCombo(comboMult);
+			}
 		}//end gameLoop();
 		
 		private function spawnBubble():void
