@@ -47,7 +47,6 @@
 			if (this.y > 700 + this.height / 2)
 			{
 				isDead = true;
-				trace("im dead!");
 			}
 		}//end updateDash() 
 		 

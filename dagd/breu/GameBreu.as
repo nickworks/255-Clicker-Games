@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.display3D.IndexBuffer3D;
 
 	public class GameBreu extends Game 
 	{
@@ -14,6 +15,8 @@
 		private var dashes:Array = new Array();
 		private var statics:Array = new Array();
 		private var walls:Array = new Array();
+		private var healthBars:Array = new Array();
+		private var comboBuilders:Array = new Array();
 		
 		/*var bubTimer:Timer = new Timer(2000,0);
 		var dashTimer:Timer = new Timer(3000,0);*/
@@ -23,8 +26,19 @@
 		private var healthCD:int = 120;
 		private var dashCD:int = 60;
 		private var staticCD:int = 240;
-		private var wallCD:int = 00;	
+		private var wallCD:int = 600;	
 		
+		private var nHUD = new HUD;
+		private var indexHUD:int = 0;
+		
+		private var currentHealth:int = 4;
+		private var lastHealth:int = 4;
+		
+		private var currentCombo:int = 4;
+		private var comboMult:int = 0;
+		private var lastCombo = 4;
+		
+		private var score:int = 0;
 		public function GameBreu() 
 		{
 			
@@ -42,10 +56,16 @@
 		
 		override public function onStart():void
 		{
+			addChild(nHUD);
+			indexHUD = getChildIndex(nHUD);
+			spawnHealthBar();
+			comboSpawn();
+			currentCombo--;
 			addEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 		override public function onEnd():void
 		{
+			removeChild(nHUD);
 			removeEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 		
@@ -95,8 +115,10 @@
 			moveDash();
 			moveStatic();
 			moveWall();
-			
-			
+			updateHealthBar();
+			comboUpdate();
+			nHUD.setScore(score);
+			nHUD.setCombo(comboMult);
 		}//end gameLoop();
 		
 		private function spawnBubble():void
@@ -106,7 +128,7 @@
 			
 			bubbles.push(nBub);
 			
-			addChild(nBub);				
+			addChildAt(nBub,indexHUD);				
 						
 		}//end spawnBubble
 		
@@ -120,7 +142,12 @@
 
 				if (bubbles[i].isDead == true)//removes bubbles
 				{
-
+					if (bubbles[i].isClicked == true)//adds combo build up and score
+					{
+						currentCombo--;
+						score += 10;
+						bubbles[i].isClicked = false;
+					}
 					//1. remive rom scene graph
 					removeChild(bubbles[i]);
 					
@@ -143,7 +170,7 @@
 			
 			physics.push(nPhysic);
 			
-			addChild(nPhysic);
+			addChildAt(nPhysic,indexHUD);
 		}
 		private function movePhysic():void
 		{
@@ -155,7 +182,12 @@
 
 				if (physics[i].isDead == true)//removes bubbles
 				{
-
+					if (physics[i].isClicked == true)//adds combo build up and score
+					{
+						currentCombo -= 2;
+						score += 15;
+						physics[i].isClicked = false;
+					}
 					//1. remive rom scene graph
 					removeChild(physics[i]);
 					
@@ -178,7 +210,7 @@
 			
 			healths.push(nHealth);
 			
-			addChild(nHealth);				
+			addChildAt(nHealth,indexHUD);				
 						
 		}//end spawnBubble
 		private function moveHealth():void
@@ -191,7 +223,13 @@
 
 				if (healths[i].isDead == true)//removes bubbles
 				{
-
+					if (healths[i].isClicked == true)//adds combo build up, score, and health
+					{
+						currentCombo--;
+						score += 15;
+						currentHealth++;
+						healths[i].isClicked = false;
+					}
 					//1. remive rom scene graph
 					removeChild(healths[i]);
 					
@@ -212,7 +250,7 @@
 			
 			dashes.push(nDash);
 			
-			addChild(nDash);
+			addChildAt(nDash,indexHUD);
 		}//end spawnDash()
 		private function moveDash():void
 		{
@@ -223,7 +261,13 @@
 
 				if (dashes[i].isDead == true)//removes dashes
 				{
-
+					if (dashes[i].isClicked == true)//removes combo build up & health
+					{
+						currentCombo = 4;
+						comboMult = 0;
+						currentHealth--;
+						dashes[i].isClicked = false;
+					}
 					//1. remive rom scene graph
 					removeChild(dashes[i]);
 					
@@ -244,7 +288,7 @@
 			
 			statics.push(nStatic);
 			
-			addChild(nStatic);
+			addChildAt(nStatic,indexHUD);
 		}//end spawnStatic()
 		private function moveStatic():void
 		{
@@ -255,7 +299,13 @@
 
 				if (statics[i].isDead == true)//removes dashes
 				{
-
+					if (statics[i].isClicked == true)//removes combo build up & health
+					{
+						currentCombo = 4;
+						comboMult = 0;
+						currentHealth--;
+						statics[i].isClicked = false;
+					}
 					//1. remive rom scene graph
 					removeChild(statics[i]);
 					
@@ -276,7 +326,7 @@
 			
 			walls.push(nWall);
 			
-			addChild(nWall);
+			addChildAt(nWall,indexHUD);
 		}//end spawnWall()
 		private function moveWall():void
 		{
@@ -284,10 +334,15 @@
 			{
 
 				walls[i].updateWall();
-
-				if (walls[i].isDead == true)//removes dashes
+				if (walls[i].isClicked == true)//removes combo build up
 				{
+					currentCombo = 4;
+					comboMult = 0;
+					walls[i].isClicked = false;
+				}
 
+				if (walls[i].isDead == true)//removes walls
+				{
 					//1. remive rom scene graph
 					removeChild(walls[i]);
 					
@@ -296,12 +351,106 @@
 					
 					//3. deref variable
 					walls.splice(i , 1);
+									
 					
 				}//end isDead if loop
 				
 			}
 		}//end moveWall()
 
+		private function spawnHealthBar():void
+		{
+			var healthbarAdder:int = 0;
+			for (var i:int = 0; i < currentHealth; i++)
+			{
+				var nHealthBar = new HealthBar;
+			
+				healthBars.push(nHealthBar);
+			
+				addChild(nHealthBar);
+				
+				healthBars[i].setX(healthbarAdder);
+				healthbarAdder += 25;
+				
+			}
+		}
+		private function deleteHealthBar():void
+		{
+			if (currentHealth >= 0)
+			{
+				for (var i:int = lastHealth-1; i >= 0; i--)
+				{
+					removeChild(healthBars[i]);
+				
+					healthBars.splice(i , 1);
+				}
+			}
+		}
+		private function updateHealthBar():void
+		{
+			if (currentHealth > 4)
+			{
+				currentHealth = 4;
+			}
+			if (currentHealth < 0)
+			{
+				currentHealth = 0;
+			}
+			if (currentHealth != lastHealth)
+			{
+				deleteHealthBar();
+				spawnHealthBar();
+				lastHealth = currentHealth;
+			}
+			
+		}
+		private function comboUpdate():void
+		{
+			if (currentCombo > 4)
+			{
+				currentCombo = 4;
+			}
+			if (currentCombo < 0)
+			{
+				currentCombo +=4;
+				comboMult++;
+			}
+			if (currentCombo != lastCombo)
+			{
+				comboDelete();
+				comboSpawn();
+				lastCombo = currentCombo;
+			}
+			
+		}
+		private function comboSpawn():void
+		{
+			var comboAdder:int = 0;
+			for (var i:int = 0; i < currentCombo; i++)
+			{
+				var nCombo = new ComboBuild;
+			
+				comboBuilders.push(nCombo);
+			
+				addChild(nCombo);
+				
+				comboBuilders[i].setY(comboAdder);
+				comboAdder += 9;
+				
+			}
+		}
+		private function comboDelete():void
+		{
+			if (currentCombo <= 4)
+			{
+				for (var i:int = lastCombo-1; i >= 0; i--)
+				{
+					removeChild(comboBuilders[i]);
+				
+					comboBuilders.splice(i , 1);
+				}
+			}
+		}
 	}//end GameBreu class
 	
 }//end dagd.breu pakage
