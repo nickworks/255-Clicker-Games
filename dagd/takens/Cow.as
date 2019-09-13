@@ -8,6 +8,7 @@
 		public var velocityX: int;
 		public var velocityY: int;
 		public var isDead: Boolean = false;
+		public var wasClicked = false;
 
 		public function Cow() {
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
@@ -23,6 +24,7 @@
 
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
+			wasClicked = true;
 		}
 
 		public function dispose(): void {
