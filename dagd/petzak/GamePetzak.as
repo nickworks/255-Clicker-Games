@@ -45,10 +45,6 @@
 		private var gameOver = false;
 
 		public function GamePetzak() {
-			creatorName = "Alec Petzak";
-			gameTitle = "placeholder title";
-			
-			setChildIndex(hud, numChildren - 1); // move hud to front
 			gameTitle = "Fishy Clicks";
 		}
 
