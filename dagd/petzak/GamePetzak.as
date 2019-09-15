@@ -8,7 +8,7 @@
 	import flash.display.DisplayObject;
 	import flash.text.TextField;
 
-	public class GamePetzak extends Game {
+	public class GamePetzak extends Game { 
 
 		/*  
 			Key game mechanics:
@@ -45,6 +45,10 @@
 		private var gameOver = false;
 
 		public function GamePetzak() {
+			creatorName = "Alec Petzak";
+			gameTitle = "placeholder title";
+			
+			setChildIndex(hud, numChildren - 1); // move hud to front
 			gameTitle = "Fishy Clicks";
 		}
 
@@ -111,7 +115,7 @@
 				spawnBad(new Shark()) // 9% chance
 			}
 			
-			setChildIndex(hud, numChildren - 1); // move hud to front
+			setChildIndex(hud, numChildren - 1); // move hud to front 
 		}
 
 		private function updateGoodFish(): void {
