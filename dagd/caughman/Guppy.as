@@ -1,6 +1,5 @@
-﻿package dagd.caughman  {
+﻿package dagd.caughman {
 
-	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
@@ -14,28 +13,28 @@
 		
 		public function Guppy() {
 			
-			x= 400;
-			y= 300;
+			x= -100;
+			y= Math.random()*500+50;
 			
-			velocityX = Math.random()*4+1;
-			velocityY = Math.random()* 5-2.5;
+			velocityX = Math.random()*2+2;
+			//velocityY = Math.random()*2-1;
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, click);
 		}//End compiler
 		
 		private function click(e:MouseEvent):void{
-				isDead =true;//reference to the game that it should be removed from the game
-				points=100;
-			}//End Click
+			isDead =true;//reference to the game that it should be removed from the game
+			points=50;
+		}//End Click
 			
-			public function update():void {
+		public function update():void {
 			x++;
 			//euler integration
 			
 			x+= velocityX;
-			y+= velocityY;
+			//y+= velocityY;
 			
-			if(x>600) isDead=true;//kills it off screne
+			if(x>800) isDead=true;//kills it off screne
 		}//End Update
 		
 		public function dispose():void{
