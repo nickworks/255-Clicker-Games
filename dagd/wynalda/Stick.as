@@ -32,7 +32,7 @@
 
 			y += 1.2; // move to right 3 pixels
 
-			if (y < 0) { // checks if off right side of screen
+			if (y > 720) { // checks if off right side of screen
 				isDead = true;
 				//x = -150; // moves to left side of screen when it goes off right
 			}
