@@ -13,9 +13,10 @@
 			addEventListener(MouseEvent.MOUSE_OUT, handleOut);
 		}
 
-		public override function dispose(): void {
+		public function disposeBlue(): void {
 			removeEventListener(MouseEvent.MOUSE_OVER, handleOver);
 			removeEventListener(MouseEvent.MOUSE_OUT, handleOut);
+			dispose();
 		}
 
 		public function update(): void {

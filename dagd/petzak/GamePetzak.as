@@ -1,4 +1,4 @@
-﻿package dagd.petzak {
+package dagd.petzak {
 
 	import dagd.core.Game;
 	import dagd.core.App;
@@ -134,7 +134,11 @@
 						spawnMiniFish(child.x, child.y); // spawn mini fish at the rainbow fish location
 					}
 
-					goodFish[i].dispose(); // remove event listeners
+					if (goodFish[i].toString() == "[object BlueFish]") {
+						goodFish[i].disposeBlue();
+					} else {
+						goodFish[i].dispose(); // remove event listeners
+					}
 					removeChild(goodFish[i]); // remove from scene graph
 					goodFish.removeAt(i); // remove from the array
 				}

@@ -17,7 +17,6 @@
 
 		public function dispose(): void {
 			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
-			//trace("dispose");
 		}
 
 		private function handleClick(e: MouseEvent): void {
