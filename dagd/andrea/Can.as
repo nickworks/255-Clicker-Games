@@ -8,13 +8,14 @@
 	public class Can extends MovieClip {
 		
 		public var isDead:Boolean = false;
-		public var score:int;
+		public var score:int = 0;
+		public var combo:int;
+		
 		
 		private var velocityX:Number;
 		private var velocityY:Number;
 		private var velocityA:Number;
-		private var timesHit:int;
-		
+
 		
 		
 		public function Can() {
@@ -74,8 +75,8 @@
 			{
 				velocityX = -velocityX;
 			}
-			timesHit++;
-			score = ((timesHit ^ 2) * 100);
+			combo++;
+			score = ((combo ^ 2) * 100);
 			trace(score);
 				
 		}

@@ -59,7 +59,7 @@
 		
 		private function handleClick(e:MouseEvent):void
 		{
-			score = -50;
+			score = -300;
 			isDead = true;
 		}
 	}

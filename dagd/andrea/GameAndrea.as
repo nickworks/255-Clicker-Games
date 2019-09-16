@@ -10,8 +10,7 @@
 	import dagd.andrea.Can;
 	import dagd.andrea.Bee;
 	import dagd.andrea.Bird;
-	import dagd.andrea.Lives;
-	//import dagd.andrea.MyHUD;
+	import dagd.andrea.MyHUD;
 
 	public class GameAndrea extends Game 
 	{		
@@ -23,7 +22,11 @@
 		private var birds:Array = new Array();
 		private var countdownTimer:int = 0;
 		private var playTimer:int = 0;
-		//private var hud:MyHUD;
+		private var score:int = 0;
+		private var lives:int = 5;
+		private var combo:int = 0;
+		private var hud:MyHUD = new MyHUD;
+
 		//private var balloonTimer:Timer = new Timer(2000,0);
 		
 		public function GameAndrea() 
@@ -41,8 +44,8 @@
 		override public function onStart():void
 		{
 			addEventListener(Event.ENTER_FRAME, gameLoop);
-			var txtLives = new Lives();
-			txtLives.Text = "Test"
+			
+			addChild(hud);
 		}
 		
 		override public function onEnd():void
@@ -53,7 +56,23 @@
 		
 		public function gameLoop(e:Event):void
 		{
-			if(App.main.isPaused) return; 
+			if(App.main.isPaused) 
+			{
+				hud.makeVisible(false);
+				return;
+			}
+			
+			if(lives == 0)
+			{
+				trace("Game Over! Score: " + score);
+				App.main.isPaused = true;
+				hud.setLives(lives = 5);
+				hud.setScore(score = 0);
+				hud.setCombo(combo = 0);
+				restart();
+			}
+			
+			hud.makeVisible(true);
 			
 			playTimer++;
 			countdownTimer--;
@@ -97,6 +116,7 @@
 				ants[j].update();
 				if(ants[j].isDead == true)
 				{
+					hud.setScore(score += ants[j].score);
 					removeChild(ants[j]);
 					ants[j].dispose();
 					ants.splice(j,1);
@@ -112,8 +132,10 @@
 				balloons[i].update();
 				if(balloons[i].isDead == true)
 				{
+					hud.setScore(score += balloons[i].score);
 					if(balloons[i].isPopped == true)
 					{
+						score += balloons[i].score;
 						var coinToss:Boolean = Boolean(Math.floor(Math.random() * 2));
 						if(coinToss == true)
 						{
@@ -162,6 +184,7 @@
 				candy[k].update();
 				if(candy[k].isDead == true)
 				{
+					hud.setScore(score += candy[k].score);
 					removeChild(candy[k]);
 					candy[k].dispose();
 					candy.splice(k,1);
@@ -177,6 +200,7 @@
 				birds[z].update();
 				if(birds[z].isDead == true)
 				{
+					hud.setLives(lives += birds[z].lives);
 					birds[z].dispose();
 					birds[z].parent.removeChild(birds[z]);	
 					birds.splice(z, 1);
@@ -192,6 +216,7 @@
 				bees[m].update();
 				if(bees[m].isDead == true)
 				{
+					hud.setScore(score += bees[m].score);
 					bees[m].dispose();
 					removeChild(bees[m]);
 					bees.splice(m, 1);
@@ -205,8 +230,11 @@
 			for (var n:int = 0; n < cans.length; n++)
 			{
 				cans[n].update();
+				hud.setCombo(cans[n].combo);
 				if(cans[n].isDead == true)
 				{
+					hud.setScore(score += cans[n].score);
+					hud.setCombo(0);
 					removeChild(cans[n]);
 					cans[n].dispose();
 					cans.splice(n, 1);
@@ -249,6 +277,53 @@
 			var bird = new Bird();
 			birds.push(bird);
 			addChild(bird);
+		}
+		
+		private function restart():void
+		{
+			playTimer = 0;
+			countdownTimer = 0;
+			for (var j:int = 0; j < ants.length; j++)
+			{
+				removeChild(ants[j]);
+				ants[j].dispose();
+				ants.splice(j,1);
+				--j;				
+			}
+			for (var k:int = 0; k < candy.length; k++)
+			{
+				removeChild(candy[k]);
+				candy[k].dispose();
+				candy.splice(k,1);
+				--k;			
+			}
+			for (var z:int = 0; z < birds.length; z++)
+			{
+				birds[z].dispose();
+				birds[z].parent.removeChild(birds[z]);	
+				birds.splice(z, 1);
+				--z;				
+			}
+			for (var m:int = 0; m < bees.length; m++)
+			{
+				bees[m].dispose();
+				removeChild(bees[m]);
+				bees.splice(m, 1);
+				--m;				
+			}
+			for (var n:int = 0; n < cans.length; n++)
+			{
+				removeChild(cans[n]);
+				cans[n].dispose();
+				cans.splice(n, 1);
+				--n;			
+			}
+			for (var i:int = balloons.length - 1; i >= 0 ; i--)
+			{				
+				balloons[i].dispose();
+				removeChild(balloons[i]);					
+				balloons.splice(i,1);				
+			}
 		}
 	}
 }

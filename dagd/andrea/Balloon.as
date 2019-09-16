@@ -36,6 +36,7 @@
 			
 			if (x < -(this.width) || x > (800 + (this.width * .5)) || y < -(this.height * .5))
 			{
+				score = -10;
 				isDead = true;
 			}
 			

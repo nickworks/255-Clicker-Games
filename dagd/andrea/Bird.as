@@ -8,6 +8,7 @@
 	public class Bird extends MovieClip {
 		
 		public var isDead:Boolean = false;
+		public var lives:int = 0;
 		
 		private var velocityX:Number;
 		private var numPasses:int;
@@ -57,8 +58,8 @@
 		
 		private function handleClick(e:MouseEvent):void
 		{
-			return;
-				
+			isDead = true;
+			lives = -1;
 		}
 	}
 	
