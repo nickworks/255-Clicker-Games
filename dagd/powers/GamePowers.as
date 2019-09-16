@@ -12,7 +12,7 @@
 
 		private var buzzsaws: Array = new Array(); // make an empty array for buzzsaws
 		private var spears: Array = new Array(); // make an empty array for spears
-		private var evilThrees: Array = new Array(); // make an empty array for evil object #3
+		private var katanas: Array = new Array(); // make an empty array for katanas
 
 		private var countdownTimerE1: int = 0; //this timer is used for the buzzsaw object spawn rate
 		private var countdownTimerE2: int = 0; //this timer is used for the spear object spawn rate
@@ -101,7 +101,7 @@
 				}
 
 				if (countdownTimerE3 <= 0 && introTimer < 1) {
-					spawnObject(EvilThree, evilThrees);
+					spawnObject(Katana, katanas);
 					countdownTimerE3 = (Math.random() * 60 + 160) - (level / 5);
 				}
 
@@ -124,7 +124,7 @@
 
 				objectUpdate(buzzsaws);
 				objectUpdate(spears);
-				objectUpdate(evilThrees);
+				objectUpdate(katanas);
 
 				objectUpdate(hearts);
 				objectUpdate(multis);

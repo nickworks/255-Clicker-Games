@@ -3,45 +3,38 @@
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 
-	public class EvilThree extends MovieClip {
+	public class Katana extends MovieClip {
 
-		private var velocityX: Number = 0; //X velocity
 		private var velocityY: Number = 0; //Y velocity
-		private var velocityA: Number = 0; //angular velocity
 
 		public var isDead: Boolean = false;
 		public var points = 0;
 		public var damage = 0;
 
-		public function Buzzsaw() {
+		public function Katana() {
 			// constructor code
 			x = (Math.random() * 700) + 50;
-			y = 730;
+			y = -80;
 
-			velocityX = Math.random() * 5 - 2.5; // -2.5 to +2.5
-			velocityY = (Math.random() * -5) - 15; //Makes object shoot up at velocity between 30 and 35
-			velocityA = (Math.random() * 10) + 10; //Velocity for the rotation of the object
+			velocityY = (Math.random() * -3) - 5; //Makes object shoot up at velocity between 30 and 35
 
 			addEventListener(MouseEvent.MOUSE_OVER, handleHover);
 		}
 
 		public function update() {
 
-			var gravity: Number = 0.3;
+			var gravity: Number = 0.2;
 
 			velocityY += gravity;
 
-			x += velocityX;
 			y += velocityY;
 
-			rotation += velocityA;
-
-			if (y > 760) isDead = true;
+			if (y > 800) isDead = true;
 		}
 
 		private function handleHover(e: MouseEvent) {
 			isDead = true; //kill this object
-			damage = 10; //damage the player
+			damage = 25; //damage the player
 		}
 
 		//this function is used for cleanup, ensuring no memory leaks
