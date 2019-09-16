@@ -1,4 +1,4 @@
-package dagd.petzak {
+﻿package dagd.petzak {
 
 	import dagd.core.Game;
 	import dagd.core.App;
@@ -7,8 +7,9 @@ package dagd.petzak {
 	import flash.events.MouseEvent;
 	import flash.display.DisplayObject;
 	import flash.text.TextField;
+	import com.adobe.tvsdk.mediacore.utils.SWFTokenDataLoader;
 
-	public class GamePetzak extends Game { 
+	public class GamePetzak extends Game {
 
 		/*  
 			Key game mechanics:
@@ -29,7 +30,9 @@ package dagd.petzak {
 			10 points - Minifish - Dispersed from rainbowfish, each with somewhat random speed/location
 			100 points- Goldfish - Shifts up and down while moving left
 			10 damage  - Jellyfish - Bounces up and down while slowly moving right
-			20 damage - Squid - Slows down, does a spin, then speeds up
+			20 damage - Swordfish - Slows down, does a spin, then speeds up
+			20 damage - Squid - Moves right, rotates 90 degrees, then shoots ink and rockets upward
+			10 damage - Ink - Shot from squid and dispersed somewhat randomly
 			30 damage - Shark - Eats oncoming friendly fish 
 		*/
 
@@ -74,13 +77,13 @@ package dagd.petzak {
 				addNewObject();
 				spawnTimer = Math.floor(Math.random() * spawnMultiplier) + 20;
 			}
-			
+
 			// render all game objects
 			updateGoodFish();
 			updateBadFish();
 		}
 
-		private function updateTime() {
+		private function updateTime(): void {
 			frames++;
 			if (frames / 60 == Math.floor(frames / 60)) { // every second
 				time++;
@@ -92,25 +95,27 @@ package dagd.petzak {
 			}
 		}
 
-		private function addNewObject() {
+		private function addNewObject(): void {
 			var rand: Number = Math.random() * 100; // 0 to 100
 
 			// randomly pick an object to spawn
 
 			if (rand < 40) {
 				spawn(new BlueFish()); // 40% chance
-			} else if (rand < 49) {
-				spawn(new GoldFish()) // 9% chance
-			} else if (rand < 69) {
-				spawn(new RainbowFish()); // 20% chance
-			} else if (rand < 78) {
-				spawnBad(new Squid()); // 9% chance
-			} else if (rand < 91) {
-				spawnBad(new JellyFish()) // 13% chance
+			} else if (rand < 48) {
+				spawn(new GoldFish()) // 8% chance
+			} else if (rand < 67) {
+				spawn(new RainbowFish()); // 19% chance
+			} else if (rand < 74) {
+				spawnBad(new Squid()); // 7% chance
+			} else if (rand < 81) {
+				spawnBad(new SwordFish()); // 7% chance
+			} else if (rand < 93) {
+				spawnBad(new JellyFish()) // 12% chance
 			} else {
-				spawnBad(new Shark()) // 9% chance
+				spawnBad(new Shark()) // 7% chance
 			}
-			
+
 			setChildIndex(hud, numChildren - 1); // move hud to front 
 		}
 
@@ -164,6 +169,10 @@ package dagd.petzak {
 				if (badFish[i].toString() == "[object Shark]") {
 					eatFish(getChildAt(getChildIndex(badFish[i])));
 				}
+				
+				if (badFish[i].toString() == "[object Squid]" && badFish[i].shootInk) {
+					shootInk(getChildAt(getChildIndex(badFish[i])));
+				}
 
 				if (badFish[i].isDead) {
 					badFish[i].dispose(); // remove event listeners
@@ -202,20 +211,27 @@ package dagd.petzak {
 			}
 		}
 
-		private function stopGame() {
+		private function shootInk(squid: Object): void {
+			var momentum: int = Math.random() * 40 + 40;
+			for (var j: int = 10; j >= 0; j--) {
+				spawnBad(new SquidInk(squid.x, squid.y, momentum));
+			}
+		}
+		
+		private function stopGame(): void {
 			hud.healthBar.width = 0;
 			gameOver = true;
 			addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-			addGameOverText();			
+			addGameOverText();
 		}
-		
-		private function addGameOverText() {
+
+		private function addGameOverText(): void {
 			var tf: TextField = new TextField();
 			tf.text = "Game Over - Click to restart";
 			tf.width = 200;
 			tf.selectable = false;
 			tf.x = 300;
-			tf.y = 300;			
+			tf.y = 300;
 			addChildAt(tf, numChildren - 1);
 		}
 
@@ -224,7 +240,7 @@ package dagd.petzak {
 			restartGame();
 		}
 
-		private function restartGame() {
+		private function restartGame(): void {
 			// reset to initial state
 			resetObjects();
 			spawnTimer = 1;
@@ -242,7 +258,7 @@ package dagd.petzak {
 			addChild(new Background());
 		}
 
-		private function resetObjects() {
+		private function resetObjects(): void {
 			// not sure if we need to dispose before clearing the arrays, but just to be safe
 			for (var i: int = goodFish.length - 1; i >= 0; i--) {
 				goodFish[i].dispose();
