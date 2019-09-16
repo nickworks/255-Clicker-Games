@@ -11,8 +11,8 @@
 	public class Stick extends MovieClip {
 
 		public var isDead: Boolean = false;
-		//public var scoreboard: Number = 0;
-
+		public var points: Number = 0;
+		public var healths: Number;
 
 		public function Stick() {
 			x = Math.random() * 780;
@@ -30,16 +30,18 @@
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
 
-			y += 1.2; // move to right 3 pixels
+			y += 1.25; // move down 1.2 pixels
 
 			if (y > 720) { // checks if off right side of screen
 				isDead = true;
-				//x = -150; // moves to left side of screen when it goes off right
+				healths = 1;
+
 			}
 		} // public function update
 
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
+			points = 5;
 
 		}
 

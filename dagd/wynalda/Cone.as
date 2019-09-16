@@ -11,6 +11,8 @@
 		private var velocityX: Number = 0;
 		private var velocityY: Number = 0;
 		private var velocityA: Number = 0;
+		public var points: Number = 0;
+		public var healths: Number;
 		//END PHYSICS
 
 		public function Cone() {
@@ -28,25 +30,19 @@
 		//This function should run every game tick.
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
-			
-			//PHYSICS
-			//var gravity:Number = 1;
-			//velocityY += gravity;
-			//x += velocityX;
-			//y += velocityY;
-			//rotation += velocityA;
-			//END PHYSICS
 
-			y += 1.5; // move to right 3 pixels
+			y += 1.5; // moves down 1.5 pixels
 
 			if (y > 720) { // checks if off right side of screen
 				isDead = true;
+				healths = 1;
 				//x = -150; // moves to left side of screen when it goes off right
 			}
 		} // public function update
 
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
+			points = 5;
 		}
 
 
