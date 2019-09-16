@@ -7,6 +7,10 @@
 	import dagd.andrea.Balloon;
 	import dagd.andrea.Ant;
 	import dagd.andrea.Candy;
+	import dagd.andrea.Can;
+	import dagd.andrea.Bee;
+	import dagd.andrea.Bird;
+	import dagd.andrea.Lives;
 	//import dagd.andrea.MyHUD;
 
 	public class GameAndrea extends Game 
@@ -14,6 +18,9 @@
 		private var balloons:Array = new Array();
 		private var ants:Array = new Array();
 		private var candy:Array = new Array();
+		private var cans:Array = new Array();
+		private var bees:Array = new Array();
+		private var birds:Array = new Array();
 		private var countdownTimer:int = 0;
 		private var playTimer:int = 0;
 		//private var hud:MyHUD;
@@ -34,6 +41,8 @@
 		override public function onStart():void
 		{
 			addEventListener(Event.ENTER_FRAME, gameLoop);
+			var txtLives = new Lives();
+			txtLives.Text = "Test"
 		}
 		
 		override public function onEnd():void
@@ -63,7 +72,10 @@
 			updateAnts();
 			updateBalloons();
 			updateCandy();	
-			trace(balloons.length);
+			updateCans();
+			updateBirds();
+			updateBees();
+			//trace(balloons.length);
 		}
 			
 
@@ -77,6 +89,7 @@
 			addChild(b);
 			//}
 		}
+		
 		private function updateAnts():void
 		{
 			for (var j:int = 0; j < ants.length; j++)
@@ -104,13 +117,32 @@
 						var coinToss:Boolean = Boolean(Math.floor(Math.random() * 2));
 						if(coinToss == true)
 						{
-							spawnAnt();
-							//trace("Ants: " + ants.length);
+							var roll:int = Math.floor(Math.random() * 3);
+							switch (roll)
+							{
+								case 0:
+									spawnBee();
+								break;
+								case 1:
+									spawnBird();
+								break;
+								case 2:
+									spawnAnt();
+								break;
+							}
 						}
 						else if(coinToss == false)
 						{
-							spawnCandy();
-							//trace("Candy: " + candy.length);
+							var negRoll:int = Math.floor(Math.random() * 2);
+							switch (negRoll)
+							{
+								case 0:
+									spawnCandy();
+								break;
+								case 1:
+									spawnCan();
+								break;
+							}
 						}
 					}
 					
@@ -137,6 +169,51 @@
 				}
 			}
 		}
+		
+		private function updateBirds():void
+		{
+			for (var z:int = 0; z < birds.length; z++)
+			{
+				birds[z].update();
+				if(birds[z].isDead == true)
+				{
+					birds[z].dispose();
+					birds[z].parent.removeChild(birds[z]);	
+					birds.splice(z, 1);
+					--z;
+				}
+			}
+		}
+		
+		private function updateBees():void
+		{
+			for (var m:int = 0; m < bees.length; m++)
+			{
+				bees[m].update();
+				if(bees[m].isDead == true)
+				{
+					bees[m].dispose();
+					removeChild(bees[m]);
+					bees.splice(m, 1);
+					--m;
+				}
+			}
+		}
+		
+		private function updateCans():void
+		{
+			for (var n:int = 0; n < cans.length; n++)
+			{
+				cans[n].update();
+				if(cans[n].isDead == true)
+				{
+					removeChild(cans[n]);
+					cans[n].dispose();
+					cans.splice(n, 1);
+					--n;
+				}
+			}
+		}
 		private function spawnAnt():void
 		{
 			var a = new Ant();
@@ -151,6 +228,27 @@
 			addChild(c);
 			//var index:int = getChildIndex(hud);
 			//addChildAt(c, index);
+		}
+		
+		private function spawnCan():void
+		{
+			var can = new Can();
+			cans.push(can);
+			addChild(can);
+		}
+		
+		private function spawnBee():void
+		{
+			var bee = new Bee();
+			bees.push(bee);
+			addChild(bee);
+		}
+		
+		private function spawnBird():void
+		{
+			var bird = new Bird();
+			birds.push(bird);
+			addChild(bird);
 		}
 	}
 }

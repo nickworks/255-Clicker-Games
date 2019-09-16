@@ -8,6 +8,7 @@
 	public class Ant extends MovieClip 
 	{
 		public var isDead:Boolean = false;
+		public var score:int;
 		
 		private var velocityX:Number;
 		private var velocityY:Number;
@@ -58,6 +59,7 @@
 		
 		private function handleClick(e:MouseEvent):void
 		{
+			score = -50;
 			isDead = true;
 		}
 	}

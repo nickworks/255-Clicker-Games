@@ -9,6 +9,7 @@
 	public class Candy extends MovieClip 
 	{
 		public var isDead:Boolean = false;
+		public var score:int;
 		
 		private var velocityX:Number;		
 		
@@ -48,6 +49,7 @@
 		
 		private function handleClick(e:MouseEvent):void
 		{
+			score = 150;
 			isDead = true;
 		}
 	}
