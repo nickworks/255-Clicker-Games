@@ -7,6 +7,7 @@
 	public class Snowmobile extends MovieClip {
 		
 		public var isDead:Boolean = false;
+		public var points:Number = 0;
 
 
 		public function Snowmobile() {
@@ -28,13 +29,14 @@
 			x += 5; // move to right 3 pixels
 
 			if (x > 810) { // checks if off right side of screen
-				isDead = true;
+				isDead = true;	
 				//x = -150; // moves to left side of screen when it goes off right
 			}
 		} // public function update
 		
 		private function handleClick(e: MouseEvent):void {
 			isDead = true;
+			points = 5;
 		}
 		
 		

@@ -7,6 +7,7 @@
 	public class Snowmobile3 extends MovieClip {
 		
 		public var isDead:Boolean = false;
+		public var points:Number = 0;
 
 
 		public function Snowmobile3() {
@@ -35,6 +36,7 @@
 		
 		private function handleClick(e: MouseEvent):void {
 			isDead = true;
+			points = 5;
 		}
 		
 		
