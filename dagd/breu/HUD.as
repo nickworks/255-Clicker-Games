@@ -10,6 +10,8 @@
 			// constructor code
 			this.x = 400;
 			this.y = 78;
+			this.gameOverText.alpha = 0;
+			this.gameOverText.x = this.width/4 - this.gameOverText.width/2;
 		}
 		public function setScore(score:int):void
 		{
@@ -18,6 +20,12 @@
 		public function setCombo(comboMult:int):void
 		{
 			this.combo.text = comboMult.toString();
+		}
+		public function gameOver():void
+		{
+			
+			this.gameOverText.alpha = 1;
+			this.gameOverText.text = "Game Over";
 		}
 	}
 	

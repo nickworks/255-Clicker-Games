@@ -19,9 +19,6 @@
 		private var healthBars:Array = new Array();
 		private var comboBuilders:Array = new Array();
 		
-		/*var bubTimer:Timer = new Timer(2000,0);
-		var dashTimer:Timer = new Timer(3000,0);*/
-		
 		private var bubCD:int = 0;
 		private var physicCD:int = 180;
 		private var healthCD:int = 120;
@@ -36,23 +33,14 @@
 		private var lastHealth:int = 4;
 		
 		private var currentCombo:int = 4;
-		private var comboMult:int = 0;
+		private var comboMult:int = 1;
 		private var lastCombo = 4;
 		
 		private var score:int = 0;
 		public function GameBreu() 
 		{
-			
 			creatorName = "Nate Breu";
 			gameTitle = "Click and point";
-
-			/*
-			bubTimer.addEventListener(TimerEvent.TIMER, spawnBubble);
-			bubTimer.start();
-			
-			dashTimer.addEventListener(TimerEvent.TIMER, spawnDash);
-			dashTimer.start();
-			*/
 		}// end GameBreu()
 		
 		override public function onStart():void
@@ -74,54 +62,62 @@
 		{
 			if (App.main.isPaused == false)
 			{
-			bubCD--;
-			physicCD--;
-			healthCD--;
-			dashCD--;
-			staticCD--;
-			wallCD--;
+				if (currentHealth <= 0)
+				{
+					nHUD.gameOver();
+					
+				}
+				else
+				{				
+					bubCD--;
+					physicCD--;
+					healthCD--;
+					dashCD--;
+					staticCD--;
+					wallCD--;
+				
+					if (bubCD <= 0)
+					{
+						spawnBubble();
+						bubCD = Math.random() * 30 + 60;
+					}
+					if (physicCD <= 0)
+					{
+						spawnPhysic();
+						physicCD = Math.random() * 60 + 600;
+					}
+					if (healthCD <= 0)
+					{
+						spawnHealth();
+						healthCD = Math.random() * 60 + 7*60;
+					}
+					if (dashCD <= 0)
+					{
+						spawnDash();
+						dashCD = Math.random() * 60 + 90;
+					}
+					if (staticCD <= 0)
+					{
+						spawnStatic();
+						staticCD = 3 * 60 + 30 +Math.random() * 60;
+					}
+					if (wallCD <= 0)
+					{
+						spawnWall();
+						wallCD = 1200;
+					}
 			
-			if (bubCD <= 0)
-			{
-				spawnBubble();
-				bubCD = Math.random() * 30 + 60;
-			}
-			if (physicCD <= 0)
-			{
-				spawnPhysic();
-				physicCD = Math.random() * 60 + 600;
-			}
-			if (healthCD <= 0)
-			{
-				spawnHealth();
-				healthCD = Math.random() * 60 + 7*60;
-			}
-			if (dashCD <= 0)
-			{
-				spawnDash();
-				dashCD = Math.random() * 60 + 90;
-			}
-			if (staticCD <= 0)
-			{
-				spawnStatic();
-				staticCD = 3 * 60 + 30 +Math.random() * 60;
-			}
-			if (wallCD <= 0)
-			{
-				spawnWall();
-				wallCD = 1200;
-			}
-			
-			moveBubble();
-			movePhysic();
-			moveHealth();
-			moveDash();
-			moveStatic();
-			moveWall();
-			updateHealthBar();
-			comboUpdate();
-			nHUD.setScore(score);
-			nHUD.setCombo(comboMult);
+					moveBubble();
+					movePhysic();
+					moveHealth();
+					moveDash();
+					moveStatic();
+					moveWall();
+					updateHealthBar();
+					comboUpdate();
+					nHUD.setScore(score);
+					nHUD.setCombo(comboMult);
+				}
 			}
 		}//end gameLoop();
 		
@@ -149,7 +145,7 @@
 					if (bubbles[i].isClicked == true)//adds combo build up and score
 					{
 						currentCombo--;
-						score += 10;
+						score += 10 * comboMult;
 						bubbles[i].isClicked = false;
 					}
 					//1. remive rom scene graph
@@ -189,7 +185,7 @@
 					if (physics[i].isClicked == true)//adds combo build up and score
 					{
 						currentCombo -= 2;
-						score += 15;
+						score += 15 * comboMult;
 						physics[i].isClicked = false;
 					}
 					//1. remive rom scene graph
@@ -230,7 +226,7 @@
 					if (healths[i].isClicked == true)//adds combo build up, score, and health
 					{
 						currentCombo--;
-						score += 15;
+						score += 10 * comboMult;
 						currentHealth++;
 						healths[i].isClicked = false;
 					}
@@ -268,7 +264,7 @@
 					if (dashes[i].isClicked == true)//removes combo build up & health
 					{
 						currentCombo = 4;
-						comboMult = 0;
+						comboMult = 1;
 						currentHealth--;
 						dashes[i].isClicked = false;
 					}
@@ -306,7 +302,7 @@
 					if (statics[i].isClicked == true)//removes combo build up & health
 					{
 						currentCombo = 4;
-						comboMult = 0;
+						comboMult = 1;
 						currentHealth--;
 						statics[i].isClicked = false;
 					}
@@ -341,7 +337,7 @@
 				if (walls[i].isClicked == true)//removes combo build up
 				{
 					currentCombo = 4;
-					comboMult = 0;
+					comboMult = 1;
 					walls[i].isClicked = false;
 				}
 
