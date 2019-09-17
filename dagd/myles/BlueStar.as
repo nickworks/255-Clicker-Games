@@ -8,6 +8,8 @@
 		public var isDead: Boolean = false;
 		
 		public var points:Number = 0;
+		
+		public var health:Number = 0;
 
 		public function BlueStar() {
 			// constructor code
@@ -40,6 +42,7 @@
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
 			points = 10;
+			health = 1;
 		}
 
 	} // ends BlueStar class

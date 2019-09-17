@@ -12,7 +12,7 @@
 		public function RedStar() {
 			// constructor code
 			x = 0;
-			y = 600;
+			y = 500;
 
 			addEventListener(MouseEvent.CLICK, handleClick);
 		}

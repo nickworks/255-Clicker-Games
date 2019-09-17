@@ -7,7 +7,7 @@
 
 		public var isDead: Boolean = false;
 		
-		public var points:Number = 0;
+		public var health:Number = 0;
 
 		public function Asteroid() {
 			// constructor code
@@ -40,7 +40,7 @@
 
 		private function mouseOver(e: MouseEvent): void {
 			isDead = true;
-			//points = 10;
+			health = 1;
 		}
 
 	} // ends Asteroid class

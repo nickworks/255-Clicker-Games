@@ -5,24 +5,23 @@
 	import flash.utils.Timer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.text.TextFieldAutoSize;
 
 	public class GameMyles extends Game {
 
 		private var stars: Array = new Array(); // make an empty array
-
 		private var blackholes: Array = new Array();
-
 		private var bluestars: Array = new Array();
-
 		private var redstars: Array = new Array();
-
 		private var asteroids: Array = new Array();
-
 		private var countdownTimer: int = 0;
-
 		private var playTimer: int = 0;
-
+		private var health:Number = 8;
 		private var score: Number = 0;
+		private var xAtFullHealth:Number;
+	    private var hud: dagd.myles.MyHUD;
+		
+		//hud.healthbar.scaleX = health/15;
 
 
 		public function GameMyles() {
@@ -33,6 +32,12 @@
 		}
 
 		override public function onStart(): void {
+			
+			hud = new dagd.myles.MyHUD();
+			addChild(hud);
+			xAtFullHealth = hud.healthbar.x;
+			hud.scoreboard.autoSize = TextFieldAutoSize.RIGHT;
+			
 			addEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 
@@ -47,10 +52,6 @@
 			playTimer++;
 
 			countdownTimer--;
-			
-			
-			
-			
 			
 			if (countdownTimer <= 0) {
 				spawnStar();
@@ -67,6 +68,18 @@
 				countdownTimer = 120 + min; // range of (min) to (min+120) frames
 				
 			}
+			
+			hud.healthbar.scaleX = health/8;
+			
+			//health--; // hurt the player
+			//var p:Number = (health / 150); // get health as a percent
+			//if(p < 0) p = 0; // clamp min to 0
+			//if(p > 1) p = 1; // clamp max to 1
+			
+			//hud.healthbar.x = xAtFullHealth - (1 - p) * hud.healthbar.width;
+			//hud.healthBar.scaleX = p; // set width of health bar
+			
+			hud.scoreboard.text = "score: " + score;
 			
 
 			updateStar();
@@ -118,7 +131,7 @@
 
 						if (stars[i].points > 0) {
 							score += stars[i].points;
-							trace("score: " + score);
+							//trace("score: " + score);
 						}
 					}
 
@@ -142,9 +155,9 @@
 
 					if (blackholes[i].isDead) {
 
-						if (blackholes[i].points > 0) {
-							score -= blackholes[i].points;
-							trace("(-2 health)");
+						if (blackholes[i].health > 0) {
+							health -= blackholes[i].health;
+							//trace(health);
 						}
 					}
 
@@ -165,7 +178,12 @@
 
 						if (bluestars[i].points > 0) {
 							score += bluestars[i].points;
-							trace("(+1 health) score: " + score);
+							//trace("(+1 health) score: " + score);
+						}
+						
+						if (bluestars[i].health > 0) {
+							health += bluestars[i].health;
+							
 						}
 					}
 					removeChild(bluestars[i]);
@@ -184,7 +202,7 @@
 
 						if (redstars[i].points > 0) {
 							score += redstars[i].points;
-							trace("score: " + score);
+							//trace("score: " + score);
 						}
 					}
 					removeChild(redstars[i]);
@@ -201,9 +219,9 @@
 
 					if (asteroids[i].isDead) {
 
-						if (asteroids[i].points > 0) {
-							score -= asteroids[i].points;
-							trace("(-1 health)");
+						if (asteroids[i].health > 0) {
+							health -= asteroids[i].health;
+							//trace(health);
 						}
 					}
 
