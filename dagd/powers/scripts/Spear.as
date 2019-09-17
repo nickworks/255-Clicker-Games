@@ -34,7 +34,7 @@
 			if (sideTest >= 0.5) velocityA = (Math.random() * 1) + 0.5; //Velocity for the rotation of the object
 			else velocityA = (Math.random() * -1) - 0.5; //Velocity for the rotation of the object
 
-			addEventListener(MouseEvent.MOUSE_OVER, handleHover);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleHover);
 		}
 
 		public function update() {
@@ -58,7 +58,7 @@
 
 		//this function is used for cleanup, ensuring no memory leaks
 		public function dispose(): void {
-			removeEventListener(MouseEvent.MOUSE_OVER, handleHover);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleHover);
 		}
 	}
 }

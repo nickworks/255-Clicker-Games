@@ -22,7 +22,7 @@
 			velocityY = (Math.random() * -5) - 15; //Makes object shoot up at velocity between 30 and 35
 			velocityA = (Math.random() * 10) + 10; //Velocity for the rotation of the object
 
-			addEventListener(MouseEvent.MOUSE_OVER, handleHover);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleHover);
 		}
 
 		public function update() {
@@ -46,7 +46,7 @@
 
 		//this function is used for cleanup, ensuring no memory leaks
 		public function dispose(): void {
-			removeEventListener(MouseEvent.MOUSE_OVER, handleHover);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleHover);
 		}
 	}
 }
