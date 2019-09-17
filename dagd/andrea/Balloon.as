@@ -10,6 +10,7 @@
 		
 		public var isDead:Boolean = false;
 		public var isPopped:Boolean = false;
+		public var score:int;
 		
 		private var velocityX:Number;
 		
@@ -17,20 +18,15 @@
 		{
 			x = (Math.random() * 400) + 200;
 			y = (Math.random() * 100) + 600;
-			velocityX = Math.random() * 4;
-			var direction:Boolean = Boolean(Math.floor(Math.random() * 2));
+			velocityX = Math.random() * 8 - 4;
+
 			
-			if (direction != true)
-			{
-				velocityX = -velocityX;
-			}
-			
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		
 		public function dispose():void 
 		{
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		
 		public function update():void 
@@ -40,6 +36,7 @@
 			
 			if (x < -(this.width) || x > (800 + (this.width * .5)) || y < -(this.height * .5))
 			{
+				score = -10;
 				isDead = true;
 			}
 			
@@ -47,6 +44,7 @@
 		
 		private function handleClick(e:MouseEvent):void
 		{
+			score = 15;
 			isDead = true;
 			isPopped = true;
 		}
