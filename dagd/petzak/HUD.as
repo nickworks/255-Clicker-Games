@@ -3,11 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.text.TextFormat;
 
-	//import flash.text;
-
 	public class HUD extends MovieClip {
-
-		private var multiplier: Number = 1;
 
 		public var healthBar: HealthBar = new HealthBar();
 
