@@ -7,6 +7,7 @@
 	import flash.text.TextFieldAutoSize;
 	import dagd.powers.scripts.*;
 	import flash.display3D.IndexBuffer3D;
+	import flash.media.Sound;
 
 	public class GamePowers extends Game {
 
@@ -35,7 +36,9 @@
 		private var hud: PowersHUD;
 		private var background: PowersBack;
 		private var oob: OOB;
+		private var pickupEffect: PickupEffect;
 		private var damageEffect: DamageEffect;
+		private var stageUpEffect: StageUpEffect;
 		private var gameOver: GameOver;
 
 		private var seeCulling: Boolean = false; //debug variable to see out of bounds
@@ -52,12 +55,16 @@
 
 		override public function onStart(): void {
 			hud = new PowersHUD();
+			pickupEffect = new PickupEffect();
 			damageEffect = new DamageEffect();
+			stageUpEffect = new StageUpEffect();
 			background = new PowersBack();
 			if (!seeCulling) oob = new OOB();
 
 			addChild(background);
+			addChild(pickupEffect);
 			addChild(damageEffect);
+			addChild(stageUpEffect);
 			if (!seeCulling) addChild(oob);
 			addChild(hud);
 
@@ -132,7 +139,7 @@
 
 				//4. update hud
 
-				if (healingTimer == 0) health += 0.01666; //heal player over time if they avoid getting hit for a while
+				if (healingTimer == 0) health += 0.05; //heal player over time if they avoid getting hit for a while
 
 				if (health < 0) health = 0; //clamp health to min of 0
 				if (health > 100) health = 100; //clamp health to min of 100
@@ -157,8 +164,11 @@
 
 				if (stageTimer == 0) {
 					level += 1;
+					stageUpEffect.alpha = 0.60;
 					stageTimer = 600;
 				}
+				stageUpEffect.update();
+				pickupEffect.update();
 
 				hud.stageText.text = "STAGE " + level;
 				hud.scoreText.text = "SCORE: " + score;
@@ -175,13 +185,20 @@
 		private function objectUpdate(objects: Array): void {
 			for (var i: int = objects.length - 1; i >= 0; i--) {
 				objects[i].update();
-				if (objects[i].isDead == true) {
+				if (objects[i].isHit == true) {
 					score += objects[i].points; //check objects for points
 					health -= objects[i].damage; //check objects for damage
 					if (objects[i].damage > 0) {
 						damageEffect.alpha = 0.60;
 						healingTimer = 200;
+						objects[i].damage = 0;
 					}
+					if (objects[i].points > 0) {
+						pickupEffect.alpha = 0.40;
+						objects[i].points = 0;
+					}
+				}
+				if (objects[i].isDead == true) {
 					removeChild(objects[i]); //stop drawing object
 					objects.splice(i, 1); //removes #i from array
 					i--;

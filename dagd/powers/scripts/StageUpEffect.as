@@ -4,7 +4,6 @@
 
 	public class StageUpEffect extends MovieClip {
 
-
 		public function StageUpEffect() {
 			// constructor code
 			alpha = 0;
