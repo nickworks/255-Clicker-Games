@@ -5,8 +5,7 @@
 	public class GameBreu extends Game {
 
 		public function GameBreu() {
-			creatorName = "Nate Breu";
-			gameTitle = "Click and point";
+			
 		}
 	}
 }
