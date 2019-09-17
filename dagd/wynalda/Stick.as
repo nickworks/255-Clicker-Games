@@ -35,6 +35,8 @@
 			if (y > 720) { // checks if off right side of screen
 				isDead = true;
 				healths = 1;
+				var hurt = new Hurt();
+				hurt.play();
 
 			}
 		} // public function update
@@ -42,6 +44,8 @@
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
 			points = 5;
+			var wood = new Wood();
+			wood.play();
 
 		}
 

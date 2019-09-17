@@ -37,6 +37,8 @@
 		private function handleClick(e: MouseEvent):void {
 			isDead = true;
 			points = 5;
+			var hurt2 = new Hurt2();
+			hurt2.play();
 		}
 		
 		
