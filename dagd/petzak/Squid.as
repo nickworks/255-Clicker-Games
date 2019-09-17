@@ -22,7 +22,7 @@
 			}
 			else { // start rotation
 				rotationCounter++;
-				if (rotationCounter < 180) {
+				if (rotationCounter < 180) { // rotate 90 degrees CCW
 					rotation -= .5;
 					x += 2;
 					y -= 1;
@@ -39,7 +39,7 @@
 				}
 			}
 
-			if (y > 1000) { // checks if off screen
+			if (y < 0) { // checks if off screen
 				isDead = true;
 			}
 		}
