@@ -12,12 +12,15 @@
 	import dagd.takens.Meteor;
 	import dagd.takens.Rocket;
 	import dagd.takens.Person;
+	import dagd.takens.*;
 	import dagd.core.App;
 	import dagd.takens.House;
 	import flash.display3D.IndexBuffer3D;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import dagd.petzak.GoldFish;
+	import flash.media.SoundTransform;
+	import dagd.petzak.Background;
 
 
 	public class GameTakens extends Game {
@@ -37,17 +40,18 @@
 		private var evilUfoTimer: int = 600;
 		private var fuelTimer: int = 100;
 		public var fuel: int = 3000;
-		public var health: int = 100;
+		public var health: Number = 100;
 		public var score: int = 0;
 		public var hud: GUI;
 		public var sc: ScoreBoard;
 		private var ticker = 0;
-		private var gameOver: Boolean = false;
+		public var gameOver: Boolean = false;
 		private var gameTicks = 0;
 		private var go:GO;
 		
 		private var digitalRide: DigitalRide;
 		private var soundChannel: SoundChannel;
+		private var musicVolume:SoundTransform;
 
 
 		public function GameTakens() {
@@ -62,7 +66,15 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, pressedKey);
 			Mouse.hide();
 			digitalRide = new DigitalRide();
-			soundChannel = digitalRide.play();
+			musicVolume = new SoundTransform();
+			musicVolume.volume = .15;
+			soundChannel = digitalRide.play(0, 999);
+			soundChannel.soundTransform = musicVolume;
+			var background:Background = new Background();
+			background.mouseEnabled = false;
+			addChild(background);
+			setChildIndex(background,0);
+			
 			hud = new GUI;
 			hud.mouseEnabled = false;
 			addChild(hud);
@@ -81,15 +93,18 @@
 		}
 
 		private function pressedKey(e: KeyboardEvent): void {
-			if (e.keyCode == Keyboard.R && gameOver) {
+			if (e.keyCode == Keyboard.R) {
+				if(gameOver){
 				restartGame();
+				}
 			}
 
 		}
-
+		
 		public function restartGame():void {
 			gameOver = false;
 			removeChild(go);
+			gameTicks = 0;
 			meteorTimer = 500;
 			cowTimer = 40;
 			rocketTimer = 200;
@@ -144,11 +159,15 @@
 			ticker++;
 			if (health <= 0 || fuel <= 0) {
 				gameOver = true;
+				var lose:Lose = new Lose();
+					lose.play();
 				var g: GO = new GO;
 				go = g;
 				addChild(go);
 			}
-			//I would have these be in the ufo class, but it messes up the location due to local space
+			else{
+			health += .02;
+			}
 
 
 			doSpawning();
@@ -176,7 +195,15 @@
 			if (fp < 0) fp = 0;
 			if (fp > 1) fp = 1;
 			hud.fuelBar.scaleX = fp;
-			fuel -= .1;
+			if(gameTicks > 4000){
+			fuel -= 2;
+			}
+			else if(gameTicks > 1000){
+				fuel -=1;
+			}
+			else{
+				fuel -=.3;
+			}
 			sc.score.text = "Score: " + score;
 		}
 
@@ -195,9 +222,16 @@
 			cowTimer--;
 
 		}
+		
+		public function hurtSound(): void{
+			var meteorSound:MeteorHit = new MeteorHit();
+						meteorSound.soundTransform = 100;
+						meteorSound.play();
+		}
 
 		private function doUpdating(): void {
-
+			gameTicks ++;
+			
 			for (var x = cows.length - 1; x >= 0; x--) {
 				cows[x].update();
 				if (cows[x].isDead) {
@@ -205,6 +239,8 @@
 						health += 2;
 						score += 50;
 						fuel += 50;
+						var cS:CowNoise = new CowNoise();
+						cS.play();
 						if (health > 100)
 							health = 100;
 					}
@@ -263,9 +299,13 @@
 				if (meteors[y].isDead) {
 					if (meteors[y].wasHit) {
 						health -= 20;
+						//var mh:SounChannel = new SoundChannel();
+						//mh.
+						hurtSound();
 					}
 					removeChild(meteors[y]);
 					meteors[y].dispose();
+					
 					meteors.removeAt(y);
 				}
 
@@ -277,6 +317,8 @@
 					if (fuels[f].wasClicked) {
 						fuel += 250;
 						score += 100;
+						var fS:FuelSound = new FuelSound();
+						fS.play();
 					}
 					removeChild(fuels[f]);
 					fuels[f].dispose();
@@ -290,6 +332,7 @@
 				if (rockets[r].isDead) {
 					if (rockets[r].wasHit) {
 						health -= 35;
+						hurtSound();
 					}
 					removeChild(rockets[r]);
 					rockets[r].dispose();
@@ -308,7 +351,7 @@
 				var c: Cow = new Cow;
 				cows.push(c);
 				addChild(c);
-				setChildIndex(c, 0);
+				setChildIndex(c, 1);
 				var side = Math.random() * 10;
 				var xvelocity = (Math.random() * 2) + 2;
 				if (side <= 5) {
@@ -333,7 +376,7 @@
 				var h: House = new House;
 				houses.push(h);
 				addChild(h);
-				setChildIndex(h, 0);
+				setChildIndex(h, 1);
 				var side = Math.random() * 10;
 				var xvelocity = 2;
 				if (side <= 5) {
@@ -354,7 +397,14 @@
 				var r: Rocket = new Rocket();
 				var index: int = getChildIndex(ufo);
 				addChild(r);
-				setChildIndex(r, 0);
+				setChildIndex(r, 1);
+				var rS:RocketSound = new RocketSound();
+				//evilsound.play();
+				var rocketTransform:SoundTransform = new SoundTransform();
+				var rocketChannel:SoundChannel = new SoundChannel();
+				rocketChannel = rS.play();
+				rocketTransform.volume = .8;
+				rocketChannel.soundTransform = rocketTransform;
 				r.x = Math.random() * 700 + 50;
 				r.velocityX = Math.random() * 5 + 8;
 				if (r.x > 400)
@@ -374,7 +424,7 @@
 				pe.x = locationX;
 				pe.y = locationY;
 				addChild(pe);
-				setChildIndex(pe, 0);
+				setChildIndex(pe, 1);
 				peoples.push(pe);
 			}
 
@@ -384,7 +434,7 @@
 		private function spawnMeteor(): void {
 			if (meteorTimer <= 0) {
 				if (gameTicks > 3600) {
-					meteorTimer += Math.random() * 40;
+					meteorTimer += Math.random() * 50;
 				} else if (gameTicks > 1000) {
 					meteorTimer += Math.random() * 120;
 				} else {
@@ -392,7 +442,7 @@
 				}
 				var m: Meteor = new Meteor();
 				addChild(m);
-				setChildIndex(m, 0);
+				setChildIndex(m, 1);
 				m.x = Math.random() * 800;
 				m.y = -20;
 				meteors.push(m);
@@ -406,12 +456,17 @@
 		private function spawnFuel(): void {
 
 			if (fuelTimer <= 0) {
-				fuelTimer += Math.random() * 350;
+				if(gameTicks > 4000){
+					fuelTimer += Math.random() * 150;//make fuel more common when fuel bar decreases faster from difficulty
+				}
+				else{
+					fuelTimer += Math.random() * 350;
+				}
 				var f: Fuel = new Fuel();
 				addChild(f);
-				setChildIndex(f, 0);
+				setChildIndex(f, 1);
 				f.x = Math.random() * 700 + 50;
-				f.y = -20;
+				f.y = -10;
 				fuels.push(f);
 				//give it a velocity
 
@@ -423,9 +478,16 @@
 			if (evilUfoTimer <= 0) {
 				evilUfoTimer += Math.random() * 250 + 50;
 				var ev: EvilUFO = new EvilUFO(this);
+				var evilsound:Laser = new Laser();
+				//evilsound.play();
+				var evilSoundTransform:SoundTransform = new SoundTransform();
+				var eSC:SoundChannel = new SoundChannel();
+				eSC = evilsound.play();
+				evilSoundTransform.volume = .12;
+				eSC.soundTransform = evilSoundTransform;
 				evilUfos.push(ev);
 				addChild(ev);
-				setChildIndex(ev, 0);
+				setChildIndex(ev, 1);
 				var side = Math.random() * 10;
 				var xvelocity = 4;
 				if (side <= 5) {
