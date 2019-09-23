@@ -460,73 +460,73 @@
 			if (countdownTimerTwig <= 0) {
 				spawnTwig();
 				var min1: int = 350;
-				if (playTimer > 300) min1 = 345; // lower number here = faster spawn.
-				if (playTimer > 600) min1 = 340;
-				if (playTimer > 1000) min1 = 335;
-				if (playTimer > 1500) min1 = 330;
-				if (playTimer > 2000) min1 = 325;
-				if (playTimer > 2250) min1 = 320;
-				if (playTimer > 2500) min1 = 315;
-				if (playTimer > 2670) min1 = 1000;
-				if (playTimer > 2780) min1 = 1000;
-				if (playTimer > 2900) min1 = 1000;
+				if (playTimer > 200) min1 = 345; // lower number here = faster spawn.
+				if (playTimer > 400) min1 = 340;
+				if (playTimer > 600) min1 = 335;
+				if (playTimer > 800) min1 = 330;
+				if (playTimer > 1000) min1 = 325;
+				if (playTimer > 1200) min1 = 320;
+				if (playTimer > 1400) min1 = 315;
+				if (playTimer > 1600) min1 = 310;
+				if (playTimer > 1800) min1 = 305;
+				if (playTimer > 2000) min1 = 300;
 				//END OF WAVE 1
-				if (playTimer > 4700) min1 = 295;
-				if (playTimer > 4900) min1 = 290;
-				if (playTimer > 5400) min1 = 285;
-				if (playTimer > 5570) min1 = 280;
-				if (playTimer > 5700) min1 = 275;
-				if (playTimer > 6000) min1 = 270;
-				if (playTimer > 6500) min1 = 265;
-				if (playTimer > 7200) min1 = 1000;
-				if (playTimer > 7500) min1 = 1000;
-				if (playTimer > 7750) min1 = 1000;
+				if (playTimer > 2700) min1 = 295;
+				if (playTimer > 2900) min1 = 290;
+				if (playTimer > 3100) min1 = 285;
+				if (playTimer > 3300) min1 = 280;
+				if (playTimer > 3500) min1 = 275;
+				if (playTimer > 3700) min1 = 270;
+				if (playTimer > 3900) min1 = 265;
+				if (playTimer > 4100) min1 = 260;
+				if (playTimer > 4300) min1 = 255;
+				if (playTimer > 4500) min1 = 250;
 				//END OF WAVE 2
-				if (playTimer > 9500) min1 = 245;
-				if (playTimer > 9650) min1 = 240;
-				if (playTimer > 9800) min1 = 235;
-				if (playTimer > 9950) min1 = 230;
-				if (playTimer > 10000) min1 = 225;
-				if (playTimer > 10500) min1 = 220;
-				if (playTimer > 11000) min1 = 215;
-				if (playTimer > 11500) min1 = 1000;
-				if (playTimer > 12000) min1 = 1000;
-				if (playTimer > 12500) min1 = 1000;
+				if (playTimer > 5200) min1 = 245;
+				if (playTimer > 5400) min1 = 240;
+				if (playTimer > 5600) min1 = 235;
+				if (playTimer > 5800) min1 = 230;
+				if (playTimer > 6000) min1 = 225;
+				if (playTimer > 6200) min1 = 220;
+				if (playTimer > 6400) min1 = 215;
+				if (playTimer > 6600) min1 = 210;
+				if (playTimer > 6800) min1 = 205;
+				if (playTimer > 7000) min1 = 200;
 				//END OF WAVE 3
-				if (playTimer > 14300) min1 = 200;
-				if (playTimer > 13900) min1 = 195;
-				if (playTimer > 14300) min1 = 190;
-				if (playTimer > 14800) min1 = 185;
-				if (playTimer > 14900) min1 = 180;
-				if (playTimer > 15500) min1 = 175;
-				if (playTimer > 16100) min1 = 170;
-				if (playTimer > 16200) min1 = 1000;
-				if (playTimer > 16500) min1 = 1000;
-				if (playTimer > 17300) min1 = 1000;
+				if (playTimer > 7700) min1 = 200;
+				if (playTimer > 7900) min1 = 195;
+				if (playTimer > 8100) min1 = 190;
+				if (playTimer > 8300) min1 = 185;
+				if (playTimer > 8500) min1 = 180;
+				if (playTimer > 8700) min1 = 175;
+				if (playTimer > 8900) min1 = 170;
+				if (playTimer > 9100) min1 = 165;
+				if (playTimer > 9300) min1 = 160;
+				if (playTimer > 9500) min1 = 155;
 				//END OF WAVE 4
-				if (playTimer > 20000) min1 = 165;
-				if (playTimer > 21000) min1 = 160;
-				if (playTimer > 22300) min1 = 155;
-				if (playTimer > 22800) min1 = 150;
-				if (playTimer > 23900) min1 = 145;
-				if (playTimer > 24500) min1 = 140;
-				if (playTimer > 25100) min1 = 135;
-				if (playTimer > 25200) min1 = 1000;
-				if (playTimer > 25500) min1 = 1000;
-				if (playTimer > 26000) min1 = 1000;
+				if (playTimer > 10200) min1 = 150;
+				if (playTimer > 10400) min1 = 145;
+				if (playTimer > 10600) min1 = 140;
+				if (playTimer > 10800) min1 = 135;
+				if (playTimer > 11000) min1 = 130;
+				if (playTimer > 11200) min1 = 125;
+				if (playTimer > 11400) min1 = 120;
+				if (playTimer > 11600) min1 = 115;
+				if (playTimer > 11800) min1 = 110;
+				if (playTimer > 12000) min1 = 105;
 				//END OF WAVE 5
-				if (playTimer > 28000) min1 = 125;
-				if (playTimer > 28400) min1 = 120;
-				if (playTimer > 28800) min1 = 115;
-				if (playTimer > 29200) min1 = 110;
-				if (playTimer > 29600) min1 = 105;
-				if (playTimer > 30000) min1 = 100;
-				if (playTimer > 30300) min1 = 95;
-				if (playTimer > 30600) min1 = 1000;
-				if (playTimer > 30900) min1 = 1000;
-				if (playTimer > 31000) min1 = 1000;
+				if (playTimer > 12700) min1 = 100;
+				if (playTimer > 12900) min1 = 95;
+				if (playTimer > 13100) min1 = 90;
+				if (playTimer > 13300) min1 = 85;
+				if (playTimer > 13500) min1 = 80;
+				if (playTimer > 13700) min1 = 75;
+				if (playTimer > 13900) min1 = 70;
+				if (playTimer > 14100) min1 = 65;
+				if (playTimer > 14300) min1 = 60;
+				if (playTimer > 14500) min1 = 55;
 				//END OF WAVE 6
-				if (playTimer > 32000) min1 = 10;
+				if (playTimer > 16000) min1 = 10;
 				//FINAL WAVE. PLAY TILL YOU LOSE.
 
 				countdownTimerTwig = Math.random() * 15 + min1; // lower number here = less resistance to the min number going down.
@@ -543,9 +543,9 @@
 				if (playTimer > 2000) min2 = 325;
 				if (playTimer > 2250) min2 = 320;
 				if (playTimer > 2500) min2 = 315;
-				if (playTimer > 2670) min2 = 1000;
-				if (playTimer > 2780) min2 = 1000;
-				if (playTimer > 2900) min2 = 1000;
+				if (playTimer > 2670) min2 = 310;
+				if (playTimer > 2780) min2 = 305;
+				if (playTimer > 2900) min2 = 300;
 				//END OF WAVE 1
 				if (playTimer > 4700) min2 = 295;
 				if (playTimer > 4900) min2 = 290;
@@ -554,9 +554,9 @@
 				if (playTimer > 5700) min2 = 275;
 				if (playTimer > 6000) min2 = 270;
 				if (playTimer > 6500) min2 = 265;
-				if (playTimer > 7200) min2 = 1000;
-				if (playTimer > 7500) min2 = 1000;
-				if (playTimer > 7700) min2 = 1000;
+				if (playTimer > 7200) min2 = 260;
+				if (playTimer > 7500) min2 = 255;
+				if (playTimer > 7700) min2 = 250;
 				//END OF WAVE 2
 				if (playTimer > 9500) min2 = 245;
 				if (playTimer > 9650) min2 = 240;
@@ -565,9 +565,9 @@
 				if (playTimer > 10000) min2 = 225;
 				if (playTimer > 10500) min2 = 220;
 				if (playTimer > 11000) min2 = 215;
-				if (playTimer > 11500) min2 = 1000;
-				if (playTimer > 12000) min2 = 1000;
-				if (playTimer > 12500) min2 = 1000;
+				if (playTimer > 11500) min2 = 210;
+				if (playTimer > 12000) min2 = 205;
+				if (playTimer > 12500) min2 = 200;
 				//END OF WAVE 3
 				if (playTimer > 14300) min2 = 200;
 				if (playTimer > 13900) min2 = 195;
@@ -576,31 +576,31 @@
 				if (playTimer > 14900) min2 = 180;
 				if (playTimer > 15500) min2 = 175;
 				if (playTimer > 16100) min2 = 170;
-				if (playTimer > 16200) min2 = 1000;
-				if (playTimer > 16500) min2 = 1000;
-				if (playTimer > 17300) min2 = 1000;
+				if (playTimer > 16200) min2 = 165;
+				if (playTimer > 16500) min2 = 160;
+				if (playTimer > 17300) min2 = 155;
 				//END OF WAVE 4
-				if (playTimer > 20000) min2 = 165;
-				if (playTimer > 21000) min2 = 160;
-				if (playTimer > 22300) min2 = 155;
-				if (playTimer > 22800) min2 = 150;
-				if (playTimer > 23900) min2 = 145;
-				if (playTimer > 24500) min2 = 140;
-				if (playTimer > 25100) min2 = 135;
-				if (playTimer > 25200) min2 = 1000;
-				if (playTimer > 25500) min2 = 1000;
-				if (playTimer > 26000) min2 = 1000;
+				if (playTimer > 20000) min2 = 150;
+				if (playTimer > 21000) min2 = 145;
+				if (playTimer > 22300) min2 = 140;
+				if (playTimer > 22800) min2 = 135;
+				if (playTimer > 23900) min2 = 130;
+				if (playTimer > 24500) min2 = 125;
+				if (playTimer > 25100) min2 = 120;
+				if (playTimer > 25200) min2 = 115;
+				if (playTimer > 25500) min2 = 110;
+				if (playTimer > 26000) min2 = 105;
 				//END OF WAVE 5
-				if (playTimer > 28000) min1 = 125;
-				if (playTimer > 28400) min2 = 120;
-				if (playTimer > 28800) min2 = 115;
-				if (playTimer > 29200) min2 = 110;
-				if (playTimer > 29600) min2 = 105;
-				if (playTimer > 30000) min2 = 100;
-				if (playTimer > 30300) min2 = 95;
-				if (playTimer > 30600) min2 = 1000;
-				if (playTimer > 30900) min2 = 1000;
-				if (playTimer > 31000) min2 = 1000;
+				if (playTimer > 28000) min1 = 100;
+				if (playTimer > 28400) min2 = 95;
+				if (playTimer > 28800) min2 = 90;
+				if (playTimer > 29200) min2 = 85;
+				if (playTimer > 29600) min2 = 80;
+				if (playTimer > 30000) min2 = 75;
+				if (playTimer > 30300) min2 = 70;
+				if (playTimer > 30600) min2 = 65;
+				if (playTimer > 30900) min2 = 60;
+				if (playTimer > 31000) min2 = 55;
 				//END OF WAVE 6
 				if (playTimer > 32000) min2 = 10;
 				//FINAL WAVE. PLAY TILL YOU LOSE.

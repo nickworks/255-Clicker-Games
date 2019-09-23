@@ -30,8 +30,10 @@
 		//This function should run every game tick.
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
+			
+			//TransitionManager.start(dagd.wynalda.Cone, {type:Rotate, direction:Transition.IN, duration:3, easing:Strong.easeInOut, ccw:false, degrees:5000});
 
-			y += 1.5; // moves down 1.5 pixels
+			y += 3; // moves down 1.5 pixels
 
 			if (y > 720) { // checks if off right side of screen
 				isDead = true;
@@ -44,7 +46,7 @@
 
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
-			points = 5;
+			points = 10;
 			var wood = new Wood();
 			wood.play();
 		}

@@ -26,7 +26,7 @@
 		// It dictates the behavior of a Blob object.
 		public function update(): void {
 			
-			y += 1; // move down 1 pixels
+			y += Math.random() * 5; // move down 1 pixels
 
 			if (y > 720) { // checks if off right side of screen
 				isDead = true;
