@@ -12,7 +12,7 @@
 		public function BlackHole() {
 			// constructor code
 			x = 800;
-			y = Math.random() * 700;
+			y = Math.random() * 500;
 
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 		}
@@ -25,7 +25,7 @@
 		// it dictates the behavior of an object.
 		public function update(): void {
 			
-			x-= 1;
+			x-= 5;
 			
 			if (x < 0) { // checks if off right side of screen
 				isDead = true;
@@ -39,7 +39,7 @@
 
 		private function mouseOver(e: MouseEvent): void {
 			isDead = true;
-			health = 1;
+			health = 3;
 		}
 
 	} // ends BlackHole class
