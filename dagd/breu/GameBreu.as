@@ -53,7 +53,7 @@
 		public function GameBreu() 
 		{
 			creatorName = "Nate Breu";
-			gameTitle = "Click and point";
+			gameTitle = "Geometclick";
 		}// end GameBreu()
 		
 		override public function onStart():void
