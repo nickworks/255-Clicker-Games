@@ -14,8 +14,8 @@
 		public function Static() 
 		{
 			//size set
-			this.height = 100;
-			this.width = 100;
+			this.height = 1;
+			this.width = 1;
 			
 			//determine x and y location
 			if (determineLocation >= 0 && determineLocation < .99)
@@ -56,6 +56,11 @@
 			if (timerTicks >= 3 * 60)
 			{
 				isDead = true;
+			}
+			if (this.height < 100)
+			{
+				this.height++;
+				this.width++;
 			}
 		}//end updateStatic()
 		

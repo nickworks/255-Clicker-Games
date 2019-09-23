@@ -6,6 +6,7 @@
 	import flash.events.TimerEvent;
 	import flash.display3D.IndexBuffer3D;
 	import dagd.core.App;
+	import flash.media.SoundChannel;
 
 	public class GameBreu extends Game 
 	{
@@ -26,17 +27,29 @@
 		private var staticCD:int = 240;
 		private var wallCD:int = 600;	
 		
+		private var bubSound = new BubbleSound();
+		private var physicsSound = new ComboSound();
+		private var healthSound = new HealthSound();
+		private var hurtSound = new HurtSound();
+		private var wallSound = new WallSound();
+		private var comboSound = new ComboUpSound();
+		private var gameOverSound = new GameOverSound();
+
+		private var music:Music =  new Music();
+		private var musicChannel:SoundChannel;
+		
 		private var nHUD = new HUD;
 		private var indexHUD:int = 0;
 		
 		private var currentHealth:int = 4;
 		private var lastHealth:int = 4;
 		
-		private var currentCombo:int = 4;
+		private var currentCombo:int = 5;
 		private var comboMult:int = 1;
-		private var lastCombo = 4;
+		private var lastCombo = 5;
 		
 		private var score:int = 0;
+		private var hasLost:Boolean = false;
 		public function GameBreu() 
 		{
 			creatorName = "Nate Breu";
@@ -50,12 +63,25 @@
 			spawnHealthBar();
 			comboSpawn();
 			currentCombo--;
+			playMusic();
 			addEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 		override public function onEnd():void
 		{
 			removeChild(nHUD);
+			musicChannel.stop();
+			musicChannel.removeEventListener(Event.SOUND_COMPLETE, musicLoop);
 			removeEventListener(Event.ENTER_FRAME, gameLoop);
+		}
+		function playMusic():void
+		{
+			musicChannel = music.play();
+			musicChannel.addEventListener(Event.SOUND_COMPLETE, musicLoop);
+		}
+		function musicLoop(e:Event):void
+		{
+			musicChannel.removeEventListener(Event.SOUND_COMPLETE, musicLoop);
+			playMusic();
 		}
 		
 		private function gameLoop(e:Event):void 
@@ -64,7 +90,13 @@
 			{
 				if (currentHealth <= 0)
 				{
+					if (hasLost == false)
+					{
 					nHUD.gameOver();
+					gameOverSound.play();
+					musicChannel.stop();
+					hasLost = true;
+					}
 					
 				}
 				else
@@ -147,6 +179,7 @@
 						currentCombo--;
 						score += 10 * comboMult;
 						bubbles[i].isClicked = false;
+						bubSound.play();
 					}
 					//1. remive rom scene graph
 					removeChild(bubbles[i]);
@@ -184,9 +217,10 @@
 				{
 					if (physics[i].isClicked == true)//adds combo build up and score
 					{
-						currentCombo -= 2;
+						comboMult++;
 						score += 15 * comboMult;
 						physics[i].isClicked = false;
+						physicsSound.play();
 					}
 					//1. remive rom scene graph
 					removeChild(physics[i]);
@@ -229,6 +263,7 @@
 						score += 10 * comboMult;
 						currentHealth++;
 						healths[i].isClicked = false;
+						healthSound.play();
 					}
 					//1. remive rom scene graph
 					removeChild(healths[i]);
@@ -267,6 +302,7 @@
 						comboMult = 1;
 						currentHealth--;
 						dashes[i].isClicked = false;
+						hurtSound.play();
 					}
 					//1. remive rom scene graph
 					removeChild(dashes[i]);
@@ -305,6 +341,7 @@
 						comboMult = 1;
 						currentHealth--;
 						statics[i].isClicked = false;
+						hurtSound.play();
 					}
 					//1. remive rom scene graph
 					removeChild(statics[i]);
@@ -339,6 +376,7 @@
 					currentCombo = 4;
 					comboMult = 1;
 					walls[i].isClicked = false;
+					wallSound.play();
 				}
 
 				if (walls[i].isDead == true)//removes walls
@@ -412,8 +450,9 @@
 			}
 			if (currentCombo < 0)
 			{
-				currentCombo +=4;
+				currentCombo +=5;
 				comboMult++;
+				comboSound.play();
 			}
 			if (currentCombo != lastCombo)
 			{
