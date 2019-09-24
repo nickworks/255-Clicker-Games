@@ -6,6 +6,7 @@
 	public class Fuel extends MovieClip {
 		
 		public var velocityY: Number;
+		public var velocityX: Number;
 		public var angularVelocity:int;
 		public var isDead: Boolean = false;
 		public var wasClicked = false;
@@ -14,15 +15,17 @@
 			velocityY = 3;
 			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 			rotation = Math.random() * 360;
-			angularVelocity = Math.random() * 10 -5;
-		}
+			angularVelocity = Math.random() * 2 - 1;
+			velocityX = Math.random() * 10 -5;
+			}
 
 		public function update(): void {
 			y += velocityY;
+			x += velocityX;
 			rotation += angularVelocity;
 			
-			velocityY += .1;
-			if (velocityY > 20)
+			velocityY += .15;
+			if (velocityY > 25)
 			velocityY = 20;
 			if(y > 720){
 				isDead = true;
