@@ -10,6 +10,8 @@
 		public var nudge: int = 0;
 		public var speed: int = 0;
 		public var damage: int = 0;
+		public var frameToggle: Boolean = true;
+		public var frameCounter: int = 0;
 
 		public function BadFish() {
 			addEventListener(MouseEvent.MOUSE_OVER, handleOver);

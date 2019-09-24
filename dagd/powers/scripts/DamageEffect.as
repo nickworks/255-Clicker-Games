@@ -2,7 +2,6 @@
 
 	import flash.display.MovieClip;
 
-
 	public class DamageEffect extends MovieClip {
 		public var healthLow: Boolean = false;
 		public var pulseEffect: Number = 0;

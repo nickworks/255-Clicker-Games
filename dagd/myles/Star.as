@@ -11,21 +11,21 @@
 
 		public function Star() {
 			// constructor code
-			x = Math.random() * 800;
-			y = Math.random() * 700;
+			x = 0;
+			y = Math.random() * 500;
 
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		//this function's job is to perform any cleanup 
 		//before an object is removed from the games.
 		public function dispose(): void {
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		// this function should run every game tick.
 		// it dictates the behavior of an object.
 		public function update(): void {
 			
-			x += 1; // move to the right 1 pixel
+			x += 3; // move to the right 1 pixel
 			
 			if (x > 800) { // checks if off right side of screen
 				isDead = true;

@@ -26,7 +26,10 @@
 
 		private function handleClick(e: MouseEvent): void {
 			//hit player
+			if(!Game.gameOver){
 			Game.health -=20;
+			Game.hurtSound();
+			}
 		}
 
 		public function dispose(): void {

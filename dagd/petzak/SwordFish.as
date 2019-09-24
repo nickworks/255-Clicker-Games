@@ -24,14 +24,14 @@
 			} else if (x > rotationStartLocation) { // 4. continue at fast speed after rotation
 				x += 4;
 			} else if (x > rotationStartLocation - 100) { // 2. slow down before rotation
+				gotoAndPlay(1);
 				x += 1;
 			} else { // 1. start moving at fast speed
 				x += 4;
 			}
 
-			if (x > 1000) { // checks if off right side of screen
+			if (x > 1000) // checks if off right side of screen
 				isDead = true;
-			}
 		}
 
 		public function rotate(): Boolean {

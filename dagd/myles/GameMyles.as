@@ -5,24 +5,26 @@
 	import flash.utils.Timer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.text.TextFieldAutoSize;
 
 	public class GameMyles extends Game {
 
 		private var stars: Array = new Array(); // make an empty array
-
 		private var blackholes: Array = new Array();
-
 		private var bluestars: Array = new Array();
-
 		private var redstars: Array = new Array();
-
 		private var asteroids: Array = new Array();
-
-		private var countdownTimer: int = 0;
-
+		private var supernovas: Array = new Array();
+		private var countdownTimer: int = 60;
 		private var playTimer: int = 0;
-
+		private var health: Number = 8;
 		private var score: Number = 0;
+		private var gameTime: Number = 0;
+		private var xAtFullHealth: Number;
+		private var hud: dagd.myles.MyHUD;
+		private var objectTimer: Number = 600;
+
+		//hud.healthbar.scaleX = health/15;
 
 
 		public function GameMyles() {
@@ -33,7 +35,18 @@
 		}
 
 		override public function onStart(): void {
+
+			hud = new dagd.myles.MyHUD();
+			addChild(hud);
+			xAtFullHealth = hud.healthbar.x;
+			hud.scoreboard.autoSize = TextFieldAutoSize.RIGHT;
+			hud.timer.autoSize = TextFieldAutoSize.LEFT;
+
 			addEventListener(Event.ENTER_FRAME, gameLoop);
+			
+			graphics.beginFill(0x000033);
+			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			graphics.endFill();
 		}
 
 		override public function onEnd(): void {
@@ -42,38 +55,79 @@
 		}
 
 		private function gameLoop(e: Event): void {
+			
+			
+
+
 			if (App.main.isPaused) return;
+
+
+
+			if (health <= 0) {
+				App.main.isPaused = true;
+				removeEventListener(Event.ENTER_FRAME, gameLoop);
+			}
+
 
 			playTimer++;
 
+
+
 			countdownTimer--;
-			
-			
-			
-			
-			
+
 			if (countdownTimer <= 0) {
 				spawnStar();
-				spawnBlackHole();
-				spawnBlueStar();
-				spawnRedStar();
 				spawnAsteroid();
-				
 
-				var min: int = 120;
-				if (playTimer > 300) min = 15;
-				if (playTimer > 600) min = 0;
+				gameTime += 1;
 
-				countdownTimer = 120 + min; // range of (min) to (min+120) frames
-				
+
+				//var min: int = 120;
+				//if (playTimer > 300) min = 15;
+				//if (playTimer > 600) min = 0;
+
+				countdownTimer = 60 //+ min; // range of (min) to (min+120) frames
+
+
 			}
+
+			objectTimer--;
+
+			if (objectTimer <= 0) {
+				spawnRedStar();
+				objectTimer = 600;
+			}
+			if (objectTimer == 300) {
+				spawnBlueStar();
+			}
+			if (objectTimer == 540) {
+
+			}
+			if (objectTimer == 300) {
+				spawnBlackHole();
+			}
+			if (objectTimer == 500) {
+				spawnSupernova();
+			}
+
+
+
+			hud.healthbar.scaleX = health / 8;
 			
+			if (health >= 8) {
+				health = 8;
+			}
+
+			hud.scoreboard.text = "Score: " + score;
+			hud.timer.text = "Time: " + gameTime;
+
 
 			updateStar();
 			updateBlackHole();
 			updateBlueStar();
 			updateRedStar();
 			updateAsteroid();
+			updateSupernova();
 
 
 
@@ -81,7 +135,7 @@
 
 
 		} // ends gameLoop
-		
+
 		private function spawnStar(): void {
 			var s = new Star(); // spawning a star
 			stars.push(s); // adding it to the collection (array)
@@ -107,6 +161,11 @@
 			asteroids.push(a);
 			addChild(a);
 		}
+		private function spawnSupernova(): void {
+			var sn = new Supernova();
+			supernovas.push(sn);
+			addChild(sn);
+		}
 
 
 		private function updateStar(): void {
@@ -118,11 +177,9 @@
 
 						if (stars[i].points > 0) {
 							score += stars[i].points;
-							trace("score: " + score);
+							//trace("score: " + score);
 						}
 					}
-
-
 					// 1. remove from scene graph 
 					removeChild(stars[i]);
 
@@ -142,9 +199,9 @@
 
 					if (blackholes[i].isDead) {
 
-						if (blackholes[i].points > 0) {
-							score -= blackholes[i].points;
-							trace("(-2 health)");
+						if (blackholes[i].health > 0) {
+							health -= blackholes[i].health;
+							//trace(health);
 						}
 					}
 
@@ -165,7 +222,12 @@
 
 						if (bluestars[i].points > 0) {
 							score += bluestars[i].points;
-							trace("(+1 health) score: " + score);
+							//trace("(+1 health) score: " + score);
+						}
+
+						if (bluestars[i].health > 0) {
+							health += bluestars[i].health;
+
 						}
 					}
 					removeChild(bluestars[i]);
@@ -184,7 +246,7 @@
 
 						if (redstars[i].points > 0) {
 							score += redstars[i].points;
-							trace("score: " + score);
+							//trace("score: " + score);
 						}
 					}
 					removeChild(redstars[i]);
@@ -201,9 +263,9 @@
 
 					if (asteroids[i].isDead) {
 
-						if (asteroids[i].points > 0) {
-							score -= asteroids[i].points;
-							trace("(-1 health)");
+						if (asteroids[i].health > 0) {
+							health -= asteroids[i].health;
+							//trace(health);
 						}
 					}
 
@@ -212,6 +274,28 @@
 					asteroids[i].dispose();
 
 					asteroids.splice(i, 1);
+				}
+            }
+			
+		}	
+		private function updateSupernova(): void {
+			for (var i: int = 0; i < supernovas.length; i++) {
+				supernovas[i].update();
+				if (supernovas[i].isDead === true) {
+
+					if (supernovas[i].isDead) {
+
+						if (supernovas[i].health > 0) {
+							health -= supernovas[i].health;
+							//trace(health);
+						}
+					}
+
+					removeChild(supernovas[i]);
+
+					supernovas[i].dispose();
+
+					supernovas.splice(i, 1);
 				}
 			}
 		}

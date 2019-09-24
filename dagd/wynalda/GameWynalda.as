@@ -39,7 +39,7 @@
 		//public var health: Number = 100; // set players starting health
 		//public var xAtFullHealth:Number;
 		public var score: Number = 0;
-		public var wave: Number = 1;
+		public var wave: Number = 1;
 		public var health: Number = 15;
 
 
@@ -52,7 +52,7 @@
 			addChild(hud);
 
 			hud.scoreboard.autoSize = TextFieldAutoSize.RIGHT;
-			hud.waveNumber.autoSize = TextFieldAutoSize.CENTER;
+			hud.waveNumber.autoSize = TextFieldAutoSize.CENTER;
 			hud.healthbar.autoSize = TextFieldAutoSize.LEFT;
 
 
@@ -83,16 +83,16 @@
 			if (playTimer > 7750) wave = 3;
 			if (playTimer > 12500) wave = 4;
 			if (playTimer > 17300) wave = 5;
-			if (playTimer > 28000) wave = 6;
-			if (playTimer > 32000) wave = 7;
-			
+			if (playTimer > 28000) wave = 6;
+			if (playTimer > 32000) wave = 7;
+			
 			if (health == 0) return;
 
 			var index: int = getChildIndex(hud);
 
 
 			hud.scoreboard.text = "Score:" + score; // making scoreboard show	
-			hud.waveNumber.text = "Wave:" + wave;
+			hud.waveNumber.text = "Wave:" + wave;
 			hud.healthbar.text = "Health:" + health;
 
 
@@ -314,18 +314,18 @@
 				if (playTimer > 25500) min2 = 1000;
 				if (playTimer > 26000) min2 = 1000;
 				//END OF WAVE 5
-			if (playTimer > 28000) min1 = 125;
-				if (playTimer > 28400) min2 = 120;
-				if (playTimer > 28800) min2 = 115;
-				if (playTimer > 29200) min2 = 110;
-				if (playTimer > 29600) min2 = 105;
-				if (playTimer > 30000) min2 = 100;
-				if (playTimer > 30300) min2 = 95;
-				if (playTimer > 30600) min2 = 1000;
-				if (playTimer > 30900) min2 = 1000;
-				if (playTimer > 31000) min2 = 1000;
-				//END OF WAVE 6
-				if (playTimer > 32000) min2 = 10;
+			if (playTimer > 28000) min1 = 125;
+				if (playTimer > 28400) min2 = 120;
+				if (playTimer > 28800) min2 = 115;
+				if (playTimer > 29200) min2 = 110;
+				if (playTimer > 29600) min2 = 105;
+				if (playTimer > 30000) min2 = 100;
+				if (playTimer > 30300) min2 = 95;
+				if (playTimer > 30600) min2 = 1000;
+				if (playTimer > 30900) min2 = 1000;
+				if (playTimer > 31000) min2 = 1000;
+				//END OF WAVE 6
+				if (playTimer > 32000) min2 = 10;
 				//FINAL WAVE. PLAY TILL YOU LOSE.
 				countdownTimerCone = Math.random() * 15 + min2;
 			}
@@ -410,9 +410,9 @@
 
 					if (sticks[i].points > 0) { //SCORE!
 						score += sticks[i].points; // SCORE!!
-					}
-						if (sticks[i].healths > 0) { //HEALTH!!
-						health -= sticks[i].healths; //HEALTH!!
+					}
+						if (sticks[i].healths > 0) { //HEALTH!!
+						health -= sticks[i].healths; //HEALTH!!
 					}
 
 					//	var a = new AnimSplatter();
@@ -442,9 +442,9 @@
 
 					if (twigs[i].points > 0) { //SCORE!
 						score += twigs[i].points; // SCORE!!
-					}
-					if (twigs[i].healths > 0) { //HEALTH!!
-						health -= twigs[i].healths; //HEALTH!!
+					}
+					if (twigs[i].healths > 0) { //HEALTH!!
+						health -= twigs[i].healths; //HEALTH!!
 					}
 
 					//	var a = new AnimSplatter();
@@ -474,9 +474,9 @@
 
 					if (cones[i].points > 0) { //SCORE!
 						score += cones[i].points; // SCORE!!
-					}
-					if (cones[i].healths > 0) { //SCORE!
-						health -= cones[i].healths; // SCORE!!
+					}
+					if (cones[i].healths > 0) { //SCORE!
+						health -= cones[i].healths; // SCORE!!
 					}
 
 					//	var a = new AnimSplatter();
