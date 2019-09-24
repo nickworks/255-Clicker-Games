@@ -8,24 +8,26 @@
 		public var isDead: Boolean = false;
 		
 		public var points:Number = 0;
+		
+		public var health:Number = 0;
 
 		public function BlueStar() {
 			// constructor code
-			x = Math.random() * 800;
-			y = Math.random() * 700;
+			x = 0;
+			y = Math.random() * 500;
 
-			addEventListener(MouseEvent.CLICK, handleClick);
+			addEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		//this function's job is to perform any cleanup 
 		//before an object is removed from the games.
 		public function dispose(): void {
-			removeEventListener(MouseEvent.CLICK, handleClick);
+			removeEventListener(MouseEvent.MOUSE_DOWN, handleClick);
 		}
 		// this function should run every game tick.
 		// it dictates the behavior of an object.
 		public function update(): void {
 			
-			x += 2; // move to the right 1 pixel
+			x += 5; // move to the right 1 pixel
 			
 			if (x > 800) { // checks if off right side of screen
 				isDead = true;
@@ -40,6 +42,7 @@
 		private function handleClick(e: MouseEvent): void {
 			isDead = true;
 			points = 10;
+			health = 1;
 		}
 
 	} // ends BlueStar class

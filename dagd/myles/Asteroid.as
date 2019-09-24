@@ -7,12 +7,12 @@
 
 		public var isDead: Boolean = false;
 		
-		public var points:Number = 0;
+		public var health:Number = 0;
 
 		public function Asteroid() {
 			// constructor code
 			x = Math.random() * 800;
-			y = Math.random() * 700;
+			y = 0;
 
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 		}
@@ -25,13 +25,15 @@
 		// it dictates the behavior of an object.
 		public function update(): void {
 			
-			x += 1;
-			y += 1;
+			x += 4;
+			y += 5;
 			
 			if (x > 800) { // checks if off right side of screen
 				isDead = true;
 				
-
+			}
+			if (y > 500) {
+				isDead = true;
 			}
 			
 
@@ -40,7 +42,7 @@
 
 		private function mouseOver(e: MouseEvent): void {
 			isDead = true;
-			//points = 10;
+			health = 1;
 		}
 
 	} // ends Asteroid class

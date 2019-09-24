@@ -6,7 +6,8 @@
 	 
 	public class dash extends MovieClip { 
 		 
-		var isDead:Boolean = false 
+		var isDead:Boolean = false; 
+		var isClicked:Boolean = false;
 		 
 		public function dash()  
 		{ 
@@ -36,8 +37,7 @@
 		 
 		private function dashClick(e:MouseEvent):void 
 		{ 
- 
-			trace("Bad"); 
+			isClicked = true;
 			isDead = true;
 			 
 		}//end dashclick() 
