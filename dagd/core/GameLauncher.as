@@ -25,12 +25,11 @@
 			GameAndrea,
 			GameBreu,
 			GameCaughman,
-			GameJennings,
 			GameMyles,
 			GamePetzak,
 			GamePowers,
 			GameSmith,
-			GameStralle,
+			//GameStralle,
 			GameTakens,
 			GameWynalda
 		];

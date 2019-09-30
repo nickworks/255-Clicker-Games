@@ -7,7 +7,7 @@
 	public class Game extends MovieClip {
 
 		public var gameTitle:String = "Superfun Game";
-		public var creatorName:String = "Nickles McPickles";
+		public var creatorName:String = "...";
 		public var bannerImage:Class = null;
 		
 		/**
